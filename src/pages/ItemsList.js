@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {Items} from '../components/Items'
-import { Link } from 'react-router-dom';
 
 function ItemsList(){
     const [items, addItems] = useState([])
+    const [types, setType] = useState([])
     const URL = `http://127.0.0.1:8080/api/items`
 
     useEffect(()=>{
@@ -12,16 +12,36 @@ function ItemsList(){
         .then(data => addItems(data.sort((a, b) => (a.rarity > b.rarity ? 1 : ((b.rarity > a.rarity)) ? -1 : 0))))
         .catch(err => console.log(err))
     }, [])
+
     function onHeaderClick(e) {
         let type = e.target.textContent.toLowerCase();
         const sorted = [...items].sort((a, b) => (a[type] > b[type]) ? 1 : ((b[type] > a[type]) ? -1 : 0));
         addItems(sorted)
-    }
 
-    const ItemElements = items
-    .map((item, index) =>
-        <Items key = {index} item={item}/>
-    )
+        // let filterType = []
+        // sorted.map((item) =>
+        //     filterType.push(item[type])
+        // )
+        // if (type == 'stack' || type == 'rarity'){
+        //     setType([...new Set(filterType)])
+        // }else{
+        //     setType([])
+        // }
+        // console.log(types)
+    }
+    
+        // if(types != []){
+        //     var ItemElements =  items.map((item, index) =>{
+        //         <ItemsFiltered key = {index} item={item} types = {types}/>
+        //     })
+        // }else{
+        //     var ItemElements =  items.map((item, index) =>{
+        //         <Items key = {index} item={item}/>
+        //     })
+        // }
+    const ItemElements =  items.map((item, index) =>{
+            <Items key = {index} item={item}/>
+        })
 
     return(
         <div className='items-wrapper'>
