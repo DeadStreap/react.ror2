@@ -3,24 +3,24 @@ import { useState } from "react";
 import { Characters } from '../components/Characters';
 
 function CharactersList(){
-    const [records, setRecords] = useState([])
+    const [characters, setCharacters] = useState([])
     const URL = `http://127.0.0.1:8080/api/characters`
 
     useEffect(()=>{
         fetch(URL)
         .then(response => response.json())
-        .then(data => setRecords(data))
+        .then(data => setCharacters(data))
         .catch(err => console.log(err))
     }, [])
 
-    const ItemElements = records.map((item, index) =>
+    const CharacterElemetnt = characters.map((item, index) =>
         <Characters key = {index} item={item}/>
     )
 
     return(
         <div className='items-wrapper'>
             <div className="items-content">
-                {ItemElements}
+                {CharacterElemetnt}
             </div>
         </div>
     )
