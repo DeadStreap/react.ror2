@@ -43,7 +43,6 @@ function ItemsList() {
                 <button className="items-header-btn" onClick={onHeaderClick}>Stack</button>
             </div>
             <div className="items-content">
-                {/* {ItemElements} */}
 
                 {types != false ?
                     (types

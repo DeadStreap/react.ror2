@@ -20,6 +20,7 @@ function App() {
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [user_img, setUserImg] = useState('');
+  const [user_id, setUserId] = useState('');
 
   if(JSON.parse(localStorage.getItem('userInf'))){
     var UserInf = JSON.parse(localStorage.getItem('userInf'))
@@ -31,10 +32,12 @@ function App() {
     setLogin(UserInf.login)
     setEmail(UserInf.email)
     setUserImg(UserInf.user_img)
+    setUserId(UserInf.user_id)
     }else{
     setLogin(get.login)
     setEmail(get.email)
     setUserImg(get.user_img)
+    setUserId(get.user_id)
     }
   }
   useEffect(()=>{
@@ -42,6 +45,7 @@ function App() {
       setLogin(UserInf.login)
       setEmail(UserInf.email)
       setUserImg(UserInf.user_img)
+      setUserId(UserInf.user_id)
     }
 }, [])
 

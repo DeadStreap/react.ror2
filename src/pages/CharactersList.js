@@ -13,14 +13,14 @@ function CharactersList(){
         .catch(err => console.log(err))
     }, [])
 
-    const CharacterElemetnt = characters.map((item, index) =>
+    const CharacterElement = characters.map((item, index) =>
         <Characters key = {index} item={item}/>
     )
 
     return(
         <div className='items-wrapper'>
             <div className="items-content">
-                {CharacterElemetnt}
+                {CharacterElement}
             </div>
         </div>
     )

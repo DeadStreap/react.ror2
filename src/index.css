@@ -202,11 +202,21 @@ a:hover{
 .big-card-back{
   align-self: flex-start;
   padding: 0px 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 .big-card-back a{
   color: #181818;
   font-weight: 900;
   font-size: 20px;
+}
+.like-btn{
+  width: 25px;
+  height: 25px;
+}
+.like-btn img{
+  width: 25px;
 }
 
 
@@ -334,6 +344,10 @@ a:hover{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.favorite-items-profile{
+  display: flex;
+  flex-wrap: wrap;
 }
 
 @media screen and (min-width: 1920px) {
