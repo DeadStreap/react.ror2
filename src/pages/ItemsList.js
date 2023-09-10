@@ -48,14 +48,14 @@ function ItemsList() {
                     (types
                         .map(type => {
                             return (
-                                <div className="filtered-items-container">
+                                <div key={type} className="filtered-items-container">
                                     <h1>{type}</h1>
                                     <div className="items-content">
                                         {items
                                             .map(item => {
                                                 if (item[sortType] == type) {
                                                     return (
-                                                        <Link to={`/item/${item.name}`} className='items-card' >
+                                                        <Link key={item.id} to={`/item/${item.name}`} className='items-card' >
                                                             <img src={item.img} />
                                                         </Link>
                                                     )
@@ -68,7 +68,7 @@ function ItemsList() {
                     (items
                         .map(item => {
                             return (
-                                <Link to={`/item/${item.name}`} className='items-card' >
+                                <Link key={item.id} to={`/item/${item.name}`} className='items-card' >
                                     <img src={item.img} />
                                 </Link>
                             )
