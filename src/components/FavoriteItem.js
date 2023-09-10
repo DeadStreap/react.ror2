@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-function FavoriteItem(item_id) {
+class FavoriteItem extends Component {
+    render() {
+        const { item } = this.props
+        return (
+            <Link to={`/item/${item[0].name}`} className='items-card' >
+                <img src={`${item[0].img}`} />
+            </Link>
+        )
+    }
 
-
-    return (
-        // <Link to={`/${item.name}`} className='items-card' >
-        //     <img src={`/${item.img}`} />
-        // </Link>
-        <>
-        <p>{item_id.item} / </p>
-        </>
-    )
 
 }
 

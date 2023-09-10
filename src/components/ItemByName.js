@@ -25,7 +25,7 @@ function ItemByName( {ItemName}){
     function getFavorite(itemId){
         try{
             const UserInf = JSON.parse(localStorage.getItem('userInf'))
-            const URL = `http://127.0.0.1:8080/api/user/favorite/${UserInf.user_id}`
+            const URL = `http://127.0.0.1:8080/api/user/favorite/id/${UserInf.user_id}`
             fetch(URL)
             .then(response => response.json())
             .then(data => {

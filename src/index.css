@@ -15,6 +15,10 @@ body {
   background-color: #101010;
   color: #fff;
 }
+h1{
+  font-size: 20px;
+  font-weight: 400;
+}
 
 header {
   padding: 2rem 0;
@@ -122,11 +126,6 @@ a:hover{
   flex-direction: column;
   align-items: center;
 }
-.filtered-items-container h1{
-  font-size: 20px;
-  font-weight: 400;
-}
-
 
 /* BIG CARDS */
 .big-card{
@@ -183,8 +182,6 @@ a:hover{
 }
 
 .big-card h1{
-  font-size: 20px;
-  font-weight: 400;
   text-align: center;
 }
 
@@ -253,9 +250,6 @@ a:hover{
 .form-label{
   border: #0808087c 1px solid
 }
-.register-form h1{
-  font-size: 20px;
-}
 
 /* SIGN IN FORM */
 .auth-form{
@@ -284,9 +278,6 @@ a:hover{
 .auth-form form label input{
   width:max-content;
 }
-.auth-form h1{
-  font-size: 20px;
-}
 .errMsg{
   color: #c6442d;
   margin-bottom: 5px;
@@ -296,7 +287,6 @@ a:hover{
 }
 .successForm h1{
   color: #6fb740;
-  font-size: 20px;
 }
 .successForm p{
   font-size: 20px;
@@ -345,7 +335,15 @@ a:hover{
   justify-content: center;
   align-items: center;
 }
-.favorite-items-profile{
+
+/* profile-favorite-items */
+.profile-favorite-items{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+.favorite-items-wrapper{
   display: flex;
   flex-wrap: wrap;
 }

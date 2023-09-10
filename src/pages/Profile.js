@@ -17,21 +17,20 @@ const Profile = ({ getUser }) => {
 
     const [userFavoritesItem, setUserFavoritesItem] = useState([])
 
-    useEffect(() => {
+    function getFavorites(){
         if (login) {
             const UserInf = JSON.parse(localStorage.getItem('userInf'))
-            const URL = `http://127.0.0.1:8080/api/user/favorite/${UserInf.user_id}`
+            const URL = `http://127.0.0.1:8080/api/user/favorite/all/${UserInf.user_id}`
             fetch(URL)
                 .then(response => response.json())
                 .then(data => {
-                    if (data[0]['favorite_items'] == '') {
-                        setUserFavoritesItem([])
-                    } else {
-                        setUserFavoritesItem(data[0]['favorite_items'].split(','))
-                    }
+                    setUserFavoritesItem(data)
                 })
                 .catch(err => console.log(err))
         }
+    }
+    useEffect(() => {
+        getFavorites()
     }, [])
 
     const FavoriteItems = userFavoritesItem.map((item, index) => 
@@ -57,8 +56,11 @@ const Profile = ({ getUser }) => {
                         </div>
 
                     </div>
-                    <div className="favorite-items-profile">
+                    <div className="profile-favorite-items">
+                        <h1>Favotite Items:</h1>
+                        <div className="favorite-items-wrapper">
                         {FavoriteItems}
+                        </div>
                     </div>
                     <button className='exitBtn' onClick={handleClick}>Exit</button>
                 </>) : (
