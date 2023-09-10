@@ -5,8 +5,8 @@ class FavoriteItem extends Component {
     render() {
         const { item } = this.props
         return (
-            <Link to={`/item/${item[0].name}`} className='items-card' >
-                <img src={`${item[0].img}`} />
+            <Link to={`/item/${item.name}`} className='items-card' >
+                <img src={`${item.img}`} />
             </Link>
         )
     }

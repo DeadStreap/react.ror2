@@ -346,6 +346,7 @@ a:hover{
 .favorite-items-wrapper{
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 @media screen and (min-width: 1920px) {
