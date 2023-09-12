@@ -1,20 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { Items } from '../components/Items'
 import { Link } from 'react-router-dom';
-
+import axios from '../api/axios'
 
 function ItemsList() {
     const [items, addItems] = useState([])
+    const [allItems, setAllItems] = useState([])
     const [types, setTypes] = useState([])
     const [sortType, setSortType] = useState([])
     const URL = `http://127.0.0.1:8080/api/items`
 
     useEffect(() => {
+        getItems()
+    }, [])
+
+    function getItems(){
         fetch(URL)
             .then(response => response.json())
-            .then(data => addItems(data.sort((a, b) => (a.rarity > b.rarity ? 1 : ((b.rarity > a.rarity)) ? -1 : 0))))
+            .then(data => {
+                const allitems = (data.sort((a, b) => (a.rarity > b.rarity ? 1 : ((b.rarity > a.rarity)) ? -1 : 0)))
+                addItems(allitems)
+                setAllItems(allitems)
+            })
             .catch(err => console.log(err))
-    }, [])
+    }
+
+    function getsItems(){
+        axios.get(URL).then((response) => {
+            return (response.data);
+          });
+    }
 
     function onHeaderClick(e) {
         let type = e.target.textContent.toLowerCase();
@@ -33,14 +48,34 @@ function ItemsList() {
         }
     }
 
+    function searchChange(e){
+        let query = e.target.value.toLowerCase();
+        if(query != ''){
+            const searchedItems = []
+            allItems.map((item) =>{
+                if(item.name.toLowerCase().indexOf(query) != -1){
+                    searchedItems.push(item)
+                }
+            })
+            addItems(searchedItems)
+        }else{
+            addItems(allItems)
+        }
+    }
+
 
     return (
         <div className='items-wrapper'>
             <div className="items-header">
-                <button className="items-header-btn" onClick={onHeaderClick}>Name</button>
-                <button className="items-header-btn" onClick={onHeaderClick}>Rarity</button>
-                <button className="items-header-btn" onClick={onHeaderClick}>Category</button>
-                <button className="items-header-btn" onClick={onHeaderClick}>Stack</button>
+                <div className="items-header-category">
+                    <button className="items-header-btn" onClick={onHeaderClick}>Name</button>
+                    <button className="items-header-btn" onClick={onHeaderClick}>Rarity</button>
+                    <button className="items-header-btn" onClick={onHeaderClick}>Category</button>
+                    <button className="items-header-btn" onClick={onHeaderClick}>Stack</button>
+                </div>
+                <div className="items-header-search">
+                    <input type='text' placeholder="Search" onChange={searchChange}/>
+                </div>
             </div>
             <div className="items-content">
 
