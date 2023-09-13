@@ -26,6 +26,7 @@ function ItemsList() {
             .catch(err => console.log(err))
     }
 
+
     function onHeaderClick(e) {
         let type = e.target.textContent.toLowerCase();
         setSortType(type)
@@ -54,6 +55,9 @@ function ItemsList() {
                 }
             })
             addItems(searchedItems)
+            if(types != false){
+                setTypes(false)
+            }
         }else{
             setSearched(false)
             addItems(allItems)
