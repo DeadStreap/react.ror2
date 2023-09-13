@@ -78,15 +78,15 @@ a:hover{
 }
 .items-header-search input{
   border-radius: 5px;
-  border: 1px solid #070707c5;
-  background-color: #0c0c0cc5;
+  /* border: 1px solid #070707c5; */
+  background-color: #151515;
   width: 100%;
   padding: 5px 8px;
   text-align: center;
   background-size: 20px 20px;
 }
 .items-header-search > input::-webkit-input-placeholder{
-  color: #ffffff89
+  color: #ffffff5e
 }
 .items-header-btn{
   background-color: #0c0c0cc5;
@@ -97,7 +97,7 @@ a:hover{
 .items-header-btn:hover{
   background-color: #0a0a0a;
 }
-.items-content{
+.items-content, .types-items-content{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

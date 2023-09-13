@@ -5,6 +5,7 @@ import axios from '../api/axios'
 
 function ItemsList() {
     const [items, addItems] = useState([])
+    const [isSearched, setSearched] = useState(false)
     const [allItems, setAllItems] = useState([])
     const [types, setTypes] = useState([])
     const [sortType, setSortType] = useState([])
@@ -23,12 +24,6 @@ function ItemsList() {
                 setAllItems(allitems)
             })
             .catch(err => console.log(err))
-    }
-
-    function getsItems(){
-        axios.get(URL).then((response) => {
-            return (response.data);
-          });
     }
 
     function onHeaderClick(e) {
@@ -51,6 +46,7 @@ function ItemsList() {
     function searchChange(e){
         let query = e.target.value.toLowerCase();
         if(query != ''){
+            setSearched(true)
             const searchedItems = []
             allItems.map((item) =>{
                 if(item.name.toLowerCase().indexOf(query) != -1){
@@ -59,6 +55,7 @@ function ItemsList() {
             })
             addItems(searchedItems)
         }else{
+            setSearched(false)
             addItems(allItems)
         }
     }
@@ -85,13 +82,14 @@ function ItemsList() {
                             return (
                                 <div key={type} className="filtered-items-container">
                                     <h1>{type}</h1>
-                                    <div className="items-content">
+                                    <div className="types-items-content">
                                         {items
                                             .map(item => {
                                                 if (item[sortType] == type) {
                                                     return (
                                                         <Link key={item.id} to={`/item/${item.name}`} className='items-card' >
                                                             <img src={item.img} />
+                                                            {isSearched == true ? (<div>{item.name}</div>) : (<></>)}
                                                         </Link>
                                                     )
                                                 }
@@ -105,6 +103,7 @@ function ItemsList() {
                             return (
                                 <Link key={item.id} to={`/item/${item.name}`} className='items-card' >
                                     <img src={item.img} />
+                                    {isSearched == true ? (<div>{item.name}</div>) : (<></>)}
                                 </Link>
                             )
                         }))
