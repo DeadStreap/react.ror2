@@ -161,6 +161,7 @@ a:hover{
   padding: 15px 0 30px 0;
   border-radius: 10px;
   max-width: 60vw;
+  min-width: 40vw;
 }
 .big-card-header{
   display: flex;
@@ -240,15 +241,16 @@ a:hover{
 .same-items-wrapper{
   display: flex;
   flex-direction: column;
-  margin: 20px 0;
+  margin: 20px 0 10px 0;
   max-width: 90%;
+  align-items: center;
 }
 .same-items{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  margin: 5px 0;
+  gap: 10px;
+  margin: 15px 0;
 }
 
 

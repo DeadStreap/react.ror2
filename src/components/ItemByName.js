@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState} from "react";
+import { Link , useParams} from 'react-router-dom';
 import axios from '../api/axios'
 
 import NotLikeIcon from '../icons/like-icon.svg'
@@ -12,8 +11,25 @@ function ItemByName({ ItemName }) {
     const [sameItems, setSameItems] = useState([])
     const [likeIcon, setLikeIcon] = useState()
     const [favorite, setFavorite] = useState([])
-    const URL = `http://127.0.0.1:8080/api/item/name/${ItemName}`
 
+
+    function getPageItem(getItemName){
+        const URL = `http://127.0.0.1:8080/api/item/name/${getItemName}`
+        fetch(URL)
+            .then(response => response.json())
+            .then(data => {
+                getFavorite(data[0].id)
+                setItem(data)
+                getSameItems(data);
+            })
+            .catch(err => console.log(err))
+    }
+
+    function onItemClick(e){
+        const clickedItemName = (e.target.parentNode.id)
+        setSameItems([])
+        getPageItem(clickedItemName)
+    }
 
     function LikeCheck(itemId, favorite_id) {
         if (favorite_id.includes(`${itemId}`) == true) {
@@ -50,16 +66,21 @@ function ItemByName({ ItemName }) {
             .then(data => {
                 const allItems = (data.sort((a, b) => (a.rarity > b.rarity ? 1 : ((b.rarity > a.rarity)) ? -1 : 0)))
                 setSameItems(allItems)
-                sameCheck(allItems, itemCategory[0].category.split(','))
+                sameCheck(allItems, itemCategory[0])
             })
             .catch(err => console.log(err))
 
     }
-    function sameCheck(allItems, itemCategory) {
+    function sameCheck(allItems, pageItem) {
         const sameItemsArr = []
+        const pageItemCategory = pageItem.category.split(',')
         allItems.map(elem => {
-            const matched = itemCategory.filter(el => elem.category.split(',').indexOf(el) > -1);
-            if (matched.length > 1) {
+            const matched = pageItemCategory.filter(el => elem.category.split(',').indexOf(el) > -1);
+            // СОРТИРОВКА ДАЖЕ ПО 1 СОВПАДЕНИЮ
+            // if (matched.length >= 1 && matched.length > (pageItemCategory.length) - 1 && elem.name != pageItem.name) {
+            //     sameItemsArr.push(elem)
+            // }
+            if (matched.length > 1 && elem.name != pageItem.name) {
                 sameItemsArr.push(elem)
             }
         })
@@ -110,14 +131,7 @@ function ItemByName({ ItemName }) {
     }
 
     useEffect(() => {
-        fetch(URL)
-            .then(response => response.json())
-            .then(data => {
-                getFavorite(data[0].id)
-                setItem(data)
-                getSameItems(data);
-            })
-            .catch(err => console.log(err))
+        getPageItem(ItemName)
     }, [])
 
     return (
@@ -149,20 +163,25 @@ function ItemByName({ ItemName }) {
                         <p>{item.description}</p>
                     </div>
 
-                    <div className="same-items-wrapper">
-                        <h1>Items :</h1>
-                        <div className="same-items">
-                            {sameItems
-                                .map(item => {
-                                    return (
-                                        <Link key={item.id} to={`/item/${item.name}`} className='items-card' >
-                                            <img src={item.img} />
-                                        </Link>
-                                    )
-                                })
-                            }
-                        </div>
-                    </div>
+                        {sameItems.length != 0 ? (
+                            <div className="same-items-wrapper">
+                                <h1>Similar items :</h1>
+                                <div className="same-items">
+                                    {sameItems
+                                        .map(item => {
+                                            return (
+                                                <Link key={item.id} id={item.name} to={`/item/${item.name}`} className='items-card' onClick={onItemClick}>
+                                                    <img src={item.img} />
+                                                </Link>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="same-items-wrapper">
+                                <h1>Similar items not found</h1>
+                            </div>)}
 
                 </div>
             ))}
