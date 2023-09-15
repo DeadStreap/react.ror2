@@ -7,43 +7,67 @@ import NotLikeIcon from '../icons/like-icon.svg'
 import LikeIcon from '../icons/actove-like-icon.svg'
 
 
-function ItemByName( {ItemName}){
+function ItemByName({ ItemName }) {
     const [Item, setItem] = useState([])
+    const [sameItems, setSameItems] = useState([])
     const [likeIcon, setLikeIcon] = useState()
     const [favorite, setFavorite] = useState([])
     const URL = `http://127.0.0.1:8080/api/item/name/${ItemName}`
 
 
-    function LikeCheck(itemId, favorite_id){
-        if(favorite_id.includes(`${itemId}`) == true){
+    function LikeCheck(itemId, favorite_id) {
+        if (favorite_id.includes(`${itemId}`) == true) {
             setLikeIcon(LikeIcon)
-        }else if(favorite_id.includes(`${itemId}`) == false){
+        } else if (favorite_id.includes(`${itemId}`) == false) {
             setLikeIcon(NotLikeIcon)
         }
     }
 
-    function getFavorite(itemId){
-        try{
+    function getFavorite(itemId) {
+        try {
             const UserInf = JSON.parse(localStorage.getItem('userInf'))
             const URL = `http://127.0.0.1:8080/api/user/favorite/id/${UserInf.user_id}`
             fetch(URL)
-            .then(response => response.json())
-            .then(data => {
-                if(data[0]['favorite_items'] != null){
-                    let id = (data[0]['favorite_items'].split(','))
-                    setFavorite(id)
-                    LikeCheck(itemId, data[0]['favorite_items'].split(','))
-                }else{
-                    setLikeIcon(NotLikeIcon)
-                }
-            })
-          }catch (err){
+                .then(response => response.json())
+                .then(data => {
+                    if (data[0]['favorite_items'] != null) {
+                        let id = (data[0]['favorite_items'].split(','))
+                        setFavorite(id)
+                        LikeCheck(itemId, data[0]['favorite_items'].split(','))
+                    } else {
+                        setLikeIcon(NotLikeIcon)
+                    }
+                })
+        } catch (err) {
             console.log(err)
-          }
+        }
     }
 
-    function LikeClick(){
-        if(likeIcon == NotLikeIcon){
+    function getSameItems(itemCategory) {
+        const URL = `http://127.0.0.1:8080/api/items`
+        fetch(URL)
+            .then(response => response.json())
+            .then(data => {
+                const allItems = (data.sort((a, b) => (a.rarity > b.rarity ? 1 : ((b.rarity > a.rarity)) ? -1 : 0)))
+                setSameItems(allItems)
+                sameCheck(allItems, itemCategory[0].category.split(','))
+            })
+            .catch(err => console.log(err))
+
+    }
+    function sameCheck(allItems, itemCategory) {
+        const sameItemsArr = []
+        allItems.map(elem => {
+            const matched = itemCategory.filter(el => elem.category.split(',').indexOf(el) > -1);
+            if (matched.length > 1) {
+                sameItemsArr.push(elem)
+            }
+        })
+        setSameItems(sameItemsArr)
+    }
+
+    function LikeClick() {
+        if (likeIcon == NotLikeIcon) {
             const UserInf = JSON.parse(localStorage.getItem('userInf'))
             const favorite_add = favorite
             favorite_add.push(`${Item[0].id}`)
@@ -56,59 +80,60 @@ function ItemByName( {ItemName}){
             }
             const response = axios.post(URL, post_inf,
                 {
-                 headers: {"Content-Type": 'application/json'}
+                    headers: { "Content-Type": 'application/json' }
                 });
-            
+
             setLikeIcon(LikeIcon)
 
-        }else if(likeIcon == LikeIcon){
+        } else if (likeIcon == LikeIcon) {
             const UserInf = JSON.parse(localStorage.getItem('userInf'))
 
-                const favorite_del = favorite
-                favorite_del.map((el, index) => {
-                    if(el == Item[0].id){
-                        favorite_del.splice(index, 1)
-                    }
-                })
-                setFavorite(favorite_del)
-
-                const URL = `http://127.0.0.1:8080/api/user/add/favorite`
-                const post_inf = {
-                    user_id: `${UserInf.user_id}`,
-                    items_id: favorite
+            const favorite_del = favorite
+            favorite_del.map((el, index) => {
+                if (el == Item[0].id) {
+                    favorite_del.splice(index, 1)
                 }
-                const response = axios.post(URL, post_inf,
-                 {
-                  headers: {"Content-Type": 'application/json'}
-                 });
+            })
+            setFavorite(favorite_del)
+
+            const URL = `http://127.0.0.1:8080/api/user/add/favorite`
+            const post_inf = {
+                user_id: `${UserInf.user_id}`,
+                items_id: favorite
+            }
+            const response = axios.post(URL, post_inf,
+                {
+                    headers: { "Content-Type": 'application/json' }
+                });
             setLikeIcon(NotLikeIcon)
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         fetch(URL)
-        .then(response => response.json())
-        .then(data => {
-            getFavorite(data[0].id)
-            setItem(data)
-        })
-        .catch(err => console.log(err))
+            .then(response => response.json())
+            .then(data => {
+                getFavorite(data[0].id)
+                setItem(data)
+                getSameItems(data);
+            })
+            .catch(err => console.log(err))
     }, [])
 
-    return(
+    return (
         <div className='big-card-wrapper'>
-                {Item.map((item, index) => (
+            {Item.map((item, index) => (
                 <div key={index} className='big-card'>
 
                     <div className="big-card-back">
                         <Link to={"/items"}>↩Back</Link>
-                        <button className="like-btn" onClick={LikeClick}><img src={likeIcon}/></button>
+                        <button className="like-btn" onClick={LikeClick}><img src={likeIcon} /></button>
                     </div>
 
                     <div className="big-card-header">
 
                         <div className="big-card-header-img">
-                            <img src={item.img}/>
+                            <img src={item.img} />
                             <h1>{item.name}</h1>
                         </div>
 
@@ -124,8 +149,23 @@ function ItemByName( {ItemName}){
                         <p>{item.description}</p>
                     </div>
 
+                    <div className="same-items-wrapper">
+                        <h1>Items :</h1>
+                        <div className="same-items">
+                            {sameItems
+                                .map(item => {
+                                    return (
+                                        <Link key={item.id} to={`/item/${item.name}`} className='items-card' >
+                                            <img src={item.img} />
+                                        </Link>
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>
+
                 </div>
-                ))}
+            ))}
         </div>
     )
 }
