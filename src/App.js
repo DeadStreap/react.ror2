@@ -1,6 +1,5 @@
 import { Routes, Route, Link } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
-import Cookies from 'js-cookie';
 
 import { Homepage } from './pages/Homepage';
 import { ArtifactsList } from './pages/ArtifactsList';
@@ -15,6 +14,7 @@ import { Character } from './pages/Character';
 import { Register } from './pages/Register';
 import { Auth } from './pages/Auth';
 import { Profile } from './pages/Profile';
+import {ThemeControl} from './components/ThemeControl'
 
 function App() {
   const [login, setLogin] = useState('');
@@ -62,6 +62,7 @@ function App() {
           <Link to="/equipments">Equipment</Link>
         </div>
         <div className='header-user'>
+          <ThemeControl />
           {login || UserInf ? (
             <Link to="/profile">{UserInf.login}</Link>
           ) : (
