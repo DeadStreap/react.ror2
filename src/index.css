@@ -51,6 +51,43 @@ a{
 a:hover{
   text-decoration: underline;
 }
+
+/* Home */
+.home-wrapper{
+
+}
+.home-main-poster{
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  padding: 0 0 10px 0;
+}
+.home-main-poster img{
+  width: 100%;
+}
+
+/* Home about game */
+.home-about-game{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+  gap: 8px 0;
+  text-align: center;
+  margin: 20px auto;
+}
+.home-about-game h1{
+  padding: 0 0 5px 0;
+  font-size: 25px;
+  font-weight: 900;
+}
+.home-about-game p{
+  font-size: 18px;
+  width: 90%;
+}
+
+/* Header */
 .header-void{
   width: 200px;
 }
@@ -82,6 +119,7 @@ a:hover{
   margin: 0 auto;
 }
 
+/* Items */
 .items-wrapper{
   display: flex;
   flex-direction: column;
