@@ -125,9 +125,6 @@ a:hover{
   padding: 15px 20px;
   border-radius: 5px;
 }
-.game-available-links a:hover{
-  background-color: calc(var(--game-buy-links-bg) * 2)
-}
 .home-critics-review{
   margin: 60px 0;
   display: flex;
