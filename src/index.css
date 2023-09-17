@@ -7,9 +7,9 @@
   --items-bg-color: #0c0c0cc5;
   --items-bg-color-hover: #0a0a0a;
   --search-bg-color: #151515;
+  --search-text-color: #ffffff5e;
   --big-card-bg-color: #0808087c;
   --form-label-color: #181818;
-  --search-text-color: #ffffff5e;
   --game-buy-links-bg: #5472d2;
 }
 [data-theme="light"]{
@@ -18,12 +18,25 @@
   --items-bg-color: #ebebf0c5;
   --items-bg-color-hover: #dedee6;
   --search-bg-color: #e0e0e7c5;
+  --search-text-color: #0000005e;
   --big-card-bg-color: #e6e6ebe0;
   --form-label-color: #dcdce9;
-  --search-text-color: #0000005e;
   --game-buy-links-bg: #5aa1e3;
 }
 
+body::-webkit-scrollbar {
+  width: 8px;
+}
+ 
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: var(--search-text-color);
+  outline: 1px solid var(--big-card-bg-color);
+  border-radius: 1px;
+}
 
 body {
   margin: 0;
@@ -34,6 +47,7 @@ body {
   color: var(--text-color);
   transition: all 0.2s ease-in-out
 }
+
 h1{
   font-size: 20px;
   font-weight: 400;
@@ -67,7 +81,6 @@ a:hover{
   width: 100%;
   max-height: 90vh;
   overflow: hidden;
-  padding: 0 0 10px 0;
 }
 .home-main-poster img{
   width: 100%;
@@ -77,25 +90,24 @@ a:hover{
 .home-about-game{
   display: flex;
   flex-direction: column;
-  width: 80%;
   justify-content: center;
   align-items: center;
   gap: 8px 0;
   text-align: center;
-  margin: 60px auto;
+  padding: 60px 0;
+  box-shadow: inset 0 0 10px var(--search-text-color);
 }
 .home-about-game h1{
   padding: 0 0 5px 0;
 }
 .home-about-game p{
   font-size: 20px;
-  width: 90%;
+  width: 60%;
 }
 
 /* Home-game-available */
 .home-game-available{
   color: #fff;
-  margin: 10px 0;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -126,12 +138,13 @@ a:hover{
   border-radius: 5px;
 }
 .home-critics-review{
-  margin: 60px 0;
+  padding: 60px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 30px 0;
+  box-shadow: inset 0 0 10px var(--search-text-color);
 }
 .critics-review-rating{
   display: flex;
@@ -145,9 +158,10 @@ a:hover{
   display: flex;
   gap: 0 5px;
   align-items: center;
+  font-size: 25px;
 }
 .critics-review-rating span{
-  font-size: 35px;
+  font-size: 40px;
   color: var(--game-buy-links-bg);
 }
 
@@ -245,6 +259,9 @@ a:hover{
   background-color: var(--items-bg-color);
   justify-content: space-between;
   align-items: center;
+}
+.items-card:hover, .characters-card:hover{
+  background-color: var(--items-bg-color-hover);
 }
 .characters-card{
   width: fit-content;

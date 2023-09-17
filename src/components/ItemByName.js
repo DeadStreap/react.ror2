@@ -76,12 +76,14 @@ function ItemByName({ ItemName }) {
         const pageItemCategory = pageItem.category.split(',')
         allItems.map(elem => {
             const matched = pageItemCategory.filter(el => elem.category.split(',').indexOf(el) > -1);
-            // СОРТИРОВКА ДАЖЕ ПО 1 СОВПАДЕНИЮ
-            // if (matched.length >= 1 && matched.length > (pageItemCategory.length) - 1 && elem.name != pageItem.name) {
-            //     sameItemsArr.push(elem)
-            // }
-            if (matched.length > 1 && elem.name != pageItem.name) {
-                sameItemsArr.push(elem)
+            if(pageItemCategory.length == 1 && elem.category.split(',').length == 1 && pageItem.rarity == elem.rarity){
+                if (matched.length == 1 && elem.name != pageItem.name) {
+                    sameItemsArr.push(elem)
+                }
+            }else{
+                if (matched.length > 1 && elem.name != pageItem.name) {
+                    sameItemsArr.push(elem)
+                }
             }
         })
         setSameItems(sameItemsArr)
