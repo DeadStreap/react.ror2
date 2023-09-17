@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
+@import url('https://fonts.cdnfonts.com/css/bombardier');
 
 :root {
   --bg-color: #101010;
@@ -9,6 +10,7 @@
   --big-card-bg-color: #0808087c;
   --form-label-color: #181818;
   --search-text-color: #ffffff5e;
+  --game-buy-links-bg: #5472d2;
 }
 [data-theme="light"]{
   --bg-color: #f2f2f3;
@@ -19,6 +21,7 @@
   --big-card-bg-color: #e6e6ebe0;
   --form-label-color: #dcdce9;
   --search-text-color: #0000005e;
+  --game-buy-links-bg: #5aa1e3;
 }
 
 
@@ -54,7 +57,11 @@ a:hover{
 
 /* Home */
 .home-wrapper{
-
+  font-family: bombardier;
+}
+.home-wrapper h1{
+  font-size: 30px;
+  font-weight: 900;
 }
 .home-main-poster{
   width: 100%;
@@ -75,16 +82,76 @@ a:hover{
   align-items: center;
   gap: 8px 0;
   text-align: center;
-  margin: 20px auto;
+  margin: 60px auto;
 }
 .home-about-game h1{
   padding: 0 0 5px 0;
-  font-size: 25px;
-  font-weight: 900;
 }
 .home-about-game p{
-  font-size: 18px;
+  font-size: 20px;
   width: 90%;
+}
+
+/* Home-game-available */
+.home-game-available{
+  color: #fff;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 10px 0;
+  background: url('icons/Risk\ of\ Rain\ 2\ game\ buy\ poster.jpg') no-repeat;
+  background-size: cover;
+  background-position: 0 -50px;
+  height: 600px;
+  padding: 120px 0 0 0;
+}
+.home-game-available h1{
+  text-shadow: #000 0 0 2px;
+}
+.game-available-links{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  max-width: 40%;
+}
+.game-available-links a{
+  color: #fff;
+  font-size: 25px;
+  background-color: var(--game-buy-links-bg);
+  padding: 15px 20px;
+  border-radius: 5px;
+}
+.game-available-links a:hover{
+  background-color: calc(var(--game-buy-links-bg) * 2)
+}
+.home-critics-review{
+  margin: 60px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px 0;
+}
+.critics-review-rating{
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 20px;
+  gap: 10px 20px;
+  justify-content: center;
+  width: 60%;
+}
+.critics-review-rating p{
+  display: flex;
+  gap: 0 5px;
+  align-items: center;
+}
+.critics-review-rating span{
+  font-size: 35px;
+  color: var(--game-buy-links-bg);
 }
 
 /* Header */
@@ -198,9 +265,6 @@ a:hover{
 .characters-card img{
   border-radius: 10px;
   width: 90px;
-}
-.items-card:hover, .characters-card:hover{
-  background-color: var(--items-bg-color-hover);
 }
 
 .filtered-items-container{
