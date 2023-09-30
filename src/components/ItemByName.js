@@ -5,26 +5,24 @@ import axios from '../api/axios'
 import NotLikeIcon from '../icons/like-icon.svg'
 import LikeIcon from '../icons/actove-like-icon.svg'
 
-
 function ItemByName({ ItemName }) {
     const [Item, setItem] = useState([])
     const [sameItems, setSameItems] = useState([])
     const [likeIcon, setLikeIcon] = useState()
     const [favorite, setFavorite] = useState([])
 
+    const BASE_URL = 'http://127.0.0.1:8080/api';
 
-    function getPageItem(getItemName) {
-        const URL = `http://127.0.0.1:8080/api/item/name/${getItemName}`;
-        fetch(URL)
-            .then(response => response.json())
-            .then(data => {
-                Promise.all([
-                    getFavorite(data[0].id),
-                    setItem(data),
-                    getSameItems(data)
-                ])
-            })
-            .catch(err => console.log(err))
+    async function getPageItem(getItemName) {
+        try {
+            const response = await axios.get(`${BASE_URL}/item/name/${getItemName}`);
+            const data = response.data;
+            getFavorite(data[0].id);
+            setItem(data);
+            getSameItems(data);
+        } catch (err) {
+            console.error('Failed to get page item:', err);
+        }
     }
 
     function onItemClick(e) {
@@ -41,15 +39,15 @@ function ItemByName({ ItemName }) {
     async function getFavorite(itemId) {
         try {
             const UserInf = JSON.parse(localStorage.getItem('userInf'));
-            const URL = `http://127.0.0.1:8080/api/user/favorite/id/${UserInf.user_id}`;
-            const response = await fetch(URL);
-            const [data] = await response.json();
-          
-            if (data.favorite_items != null) {
+            const response = await axios.get(`${BASE_URL}/user/favorite/id/${UserInf.user_id}`);
+            const [data] = response.data;
+
+            if (data.favorite_items) {
                 const ids = data.favorite_items.split(',');
                 setFavorite(ids);
                 LikeCheck(itemId, ids);
             }
+
         } catch (err) {
             console.error('Failed to get favorite:', err);
         }
@@ -57,10 +55,9 @@ function ItemByName({ ItemName }) {
       
 
     async function getSameItems(itemCategory) {
-        const URL = `http://127.0.0.1:8080/api/items`
         try {
-            const response = await fetch(URL);
-            const data = await response.json();
+            const response = await axios.get(`${BASE_URL}/items`);
+            const data = response.data;
             const allItems = data.sort((a, b) => (a.rarity > b.rarity ? 1 : b.rarity > a.rarity ? -1 : 0));
             setSameItems(allItems);
             sameCheck(allItems, itemCategory[0]);
@@ -83,47 +80,33 @@ function ItemByName({ ItemName }) {
         setSameItems(sameItemsArr);
     }
 
+    async function addToFavorite() {
+        const UserInf = JSON.parse(localStorage.getItem('userInf'))
+        const updatedFavorite = [...favorite, `${Item[0].id}`];
+        setFavorite(updatedFavorite);
+        await updateFavorite(UserInf, updatedFavorite);
+        setLikeIcon(LikeIcon);
+    }
+
+    async function removeFromFavorite() {
+        const UserInf = JSON.parse(localStorage.getItem('userInf'))
+        const updatedFavorite = favorite.filter(item => item !== `${Item[0].id}`);
+        setFavorite(updatedFavorite);
+        await updateFavorite(UserInf, updatedFavorite);
+        setLikeIcon(NotLikeIcon);
+    }
+
+    async function updateFavorite(UserInf, updatedFavorite) {
+        await axios.post(`${BASE_URL}/user/add/favorite`, {
+            user_id: `${UserInf.user_id}`,
+            items_id: updatedFavorite
+        }, {
+            headers: { "Content-Type": 'application/json' }
+        });
+    }
+
     function LikeClick() {
-        if (likeIcon == NotLikeIcon) {
-            const UserInf = JSON.parse(localStorage.getItem('userInf'))
-            const favorite_add = favorite
-            favorite_add.push(`${Item[0].id}`)
-            setFavorite(favorite_add)
-
-            const URL = `http://127.0.0.1:8080/api/user/add/favorite`
-            const post_inf = {
-                user_id: `${UserInf.user_id}`,
-                items_id: favorite
-            }
-            const response = axios.post(URL, post_inf,
-                {
-                    headers: { "Content-Type": 'application/json' }
-                });
-
-            setLikeIcon(LikeIcon)
-
-        } else if (likeIcon == LikeIcon) {
-            const UserInf = JSON.parse(localStorage.getItem('userInf'))
-
-            const favorite_del = favorite
-            favorite_del.map((el, index) => {
-                if (el == Item[0].id) {
-                    favorite_del.splice(index, 1)
-                }
-            })
-            setFavorite(favorite_del)
-
-            const URL = `http://127.0.0.1:8080/api/user/add/favorite`
-            const post_inf = {
-                user_id: `${UserInf.user_id}`,
-                items_id: favorite
-            }
-            const response = axios.post(URL, post_inf,
-                {
-                    headers: { "Content-Type": 'application/json' }
-                });
-            setLikeIcon(NotLikeIcon)
-        }
+        likeIcon === NotLikeIcon ? addToFavorite() : removeFromFavorite();
     }
 
 
