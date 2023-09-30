@@ -71,7 +71,7 @@ function ItemsList() {
                     <button className="items-header-btn" onClick={onHeaderClick}>Stack</button>
                 </div>
                 <div className="items-header-search">
-                    <input type='text' placeholder="Search" onChange={searchChange}/>
+                    <input type='text' placeholder="Search" onChange={searchChange} spellcheck='false'/>
                 </div>
             </div>
             <div className="items-content">

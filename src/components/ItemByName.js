@@ -38,32 +38,10 @@ function ItemByName({ ItemName }) {
         setLikeIcon(isFavorite ? LikeIcon : NotLikeIcon);
     }
 
-    // function getFavorite(itemId) {
-    //     try {
-    //         const UserInf = JSON.parse(localStorage.getItem('userInf'))
-    //         const URL = `http://127.0.0.1:8080/api/user/favorite/id/${UserInf.user_id}`
-    //         fetch(URL)
-    //             .then(response => response.json())
-    //             .then(data => {
-    //                 if (data[0]['favorite_items'] != null) {
-    //                     let id = (data[0]['favorite_items'].split(','))
-    //                     setFavorite(id)
-    //                     LikeCheck(itemId, id)
-    //                 } else {
-    //                     setLikeIcon(NotLikeIcon)
-    //                 }
-    //             })
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // }
-
     async function getFavorite(itemId) {
         try {
-            const userInfoString = localStorage.getItem('userInf');
-            const { user_id } = JSON.parse(userInfoString);
-            const URL = `http://127.0.0.1:8080/api/user/favorite/id/${user_id}`;
-
+            const UserInf = JSON.parse(localStorage.getItem('userInf'));
+            const URL = `http://127.0.0.1:8080/api/user/favorite/id/${UserInf.user_id}`;
             const response = await fetch(URL);
             const [data] = await response.json();
           
@@ -71,8 +49,6 @@ function ItemByName({ ItemName }) {
                 const ids = data.favorite_items.split(',');
                 setFavorite(ids);
                 LikeCheck(itemId, ids);
-            } else {
-                setLikeIcon(NotLikeIcon);
             }
         } catch (err) {
             console.error('Failed to get favorite:', err);
@@ -92,32 +68,12 @@ function ItemByName({ ItemName }) {
         catch (err) { console.log(err); }
     }
 
-    // function sameCheck(allItems, pageItem) {
-    //     const sameItemsArr = []
-    //     const pageItemCategory = pageItem.category.split(',')
-    //     allItems.map(elem => {
-    //         const matched = pageItemCategory.filter(el => elem.category.split(',').indexOf(el) > -1);
-    //         if (pageItemCategory.length == 1 && elem.category.split(',').length == 1 && pageItem.rarity == elem.rarity) {
-    //             if (matched.length == 1 && elem.name != pageItem.name) {
-    //                 sameItemsArr.push(elem)
-    //             }
-    //         } else {
-    //             if (matched.length > 1 && elem.name != pageItem.name) {
-    //                 sameItemsArr.push(elem)
-    //             }
-    //         }
-    //     })
-    //     setSameItems(sameItemsArr)
-    // }
-
     function sameCheck(allItems, pageItem) {
         const pageItemCategory = pageItem.category.split(',');
-    
+
         const sameItemsArr = allItems.filter(elem => {
             const elemCategories = elem.category.split(',');
-            
             const matched = pageItemCategory.filter(el => elemCategories.includes(el));
-    
             const isSingleCategoryMatch = pageItemCategory.length === 1 && elemCategories.length === 1 && pageItem.rarity === elem.rarity && matched.length === 1;
             const isMultipleCategoryMatch = matched.length > 1;
     
