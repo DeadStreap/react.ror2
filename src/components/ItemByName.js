@@ -158,10 +158,7 @@ function ItemByName({ ItemName }) {
                                 }
                             </div>
                         </div>
-                    ) : (
-                        <div className="same-items-wrapper">
-                            <h1>Similar items not found</h1>
-                        </div>)}
+                    ) : (<></>)}
 
                 </div>
             ))}
