@@ -19,51 +19,47 @@ function ItemsList() {
         fetch(URL)
             .then(response => response.json())
             .then(data => {
-                const allitems = (data.sort((a, b) => (a.rarity > b.rarity ? 1 : ((b.rarity > a.rarity)) ? -1 : 0)))
+                const allitems = data.sort((a, b) => a.rarity.localeCompare(b.rarity));
                 addItems(allitems)
                 setAllItems(allitems)
             })
             .catch(err => console.log(err))
     }
 
-
     function onHeaderClick(e) {
-        let type = e.target.textContent.toLowerCase();
-        setSortType(type)
-        const sorted = [...items].sort((a, b) => (a[type] > b[type]) ? 1 : ((b[type] > a[type]) ? -1 : 0));
-        addItems(sorted)
-
-        if (type == 'rarity' || type == 'stack') {
-            let typesarr = []
-            items.map((item) => {
-                typesarr.push(item[type])
-            })
-            setTypes([...new Set(typesarr)])
+        const type = e.target.textContent.toLowerCase();
+        setSortType(type);
+        const sortedItems = [...items].sort((a, b) => (a[type] > b[type]) ? 1 : ((b[type] > a[type]) ? -1 : 0));
+        addItems(sortedItems);
+        if (type === 'rarity' || type === 'stack') {
+            const typesArr = items.map(item => item[type]);
+            setTypes([...new Set(typesArr)]);
         } else {
-            setTypes(false)
+            setTypes(false);
         }
     }
 
     function searchChange(e){
-        let query = e.target.value.toLowerCase();
-        if(query != ''){
-            setSearched(true)
-            const searchedItems = []
-            allItems.map((item) =>{
-                if(item.name.toLowerCase().indexOf(query) != -1){
-                    searchedItems.push(item)
-                }
-            })
-            addItems(searchedItems)
-            if(types != false){
-                setTypes(false)
+        const query = e.target.value.toLowerCase();
+        if(query !== ''){
+            setSearched(true);
+            const searchedItems = allItems.filter(item => item.name.toLowerCase().includes(query));
+            addItems(searchedItems);
+            if(types !== false){
+                setTypes(false);
             }
-        }else{
-            setSearched(false)
-            addItems(allItems)
+        } else {
+            setSearched(false);
+            addItems(allItems);
         }
     }
 
+    const ItemLink = ({ item, isSearched }) => (
+        <Link key={item.id} to={`/item/${item.name}`} className='items-card' >
+            <img src={item.img} />
+            {isSearched && <div>{item.name}</div>}
+        </Link>
+    )
 
     return (
         <div className='items-wrapper'>
@@ -88,40 +84,25 @@ function ItemsList() {
                                     <h1>{type}</h1>
                                     <div className="types-items-content">
                                         {items
-                                            .map(item => {
-                                                if (item[sortType] == type) {
-                                                    return (
-                                                        <Link key={item.id} to={`/item/${item.name}`} className='items-card' >
-                                                            <img src={item.img} />
-                                                            {isSearched == true ? (<div>{item.name}</div>) : (<></>)}
-                                                        </Link>
-                                                    )
-                                                }
-                                            })}
+                                            .filter(item => item[sortType] === type)
+                                            .map(filteredItem => (
+                                                <ItemLink key={filteredItem.id} item={filteredItem} isSearched={isSearched} />
+                                            ))
+                                        }
                                     </div>
                                 </div>
                             )
                         })) :
-                    (items
-                        .map(item => {
-                            return (
-                                <Link key={item.id} to={`/item/${item.name}`} className='items-card' >
-                                    <img src={item.img} />
-                                    {isSearched == true ? (<div>{item.name}</div>) : (<></>)}
-                                </Link>
-                            )
-                        }))
+                        (items
+                            .map(item => {
+                                return (
+                                    <Link key={item.id} to={`/item/${item.name}`} className='items-card'>
+                                        <img src={item.img} />
+                                        {isSearched && <div>{item.name}</div>}
+                                    </Link>
+                                )
+                            }))
                 }
-
-                {/* {items
-                .map(item =>{
-                    return(
-                        <Link to={`/item/${item.name}`} className='items-card' >
-                            <img src={item.img}/>
-                        </Link>
-                    )
-                })
-                } */}
 
             </div>
         </div>

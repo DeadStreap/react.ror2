@@ -1,5 +1,5 @@
-import React, { useEffect, useState} from "react";
-import { Link , useParams} from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from 'react-router-dom';
 import axios from '../api/axios'
 
 import NotLikeIcon from '../icons/like-icon.svg'
@@ -13,80 +13,118 @@ function ItemByName({ ItemName }) {
     const [favorite, setFavorite] = useState([])
 
 
-    function getPageItem(getItemName){
-        const URL = `http://127.0.0.1:8080/api/item/name/${getItemName}`
+    function getPageItem(getItemName) {
+        const URL = `http://127.0.0.1:8080/api/item/name/${getItemName}`;
         fetch(URL)
             .then(response => response.json())
             .then(data => {
-                getFavorite(data[0].id)
-                setItem(data)
-                getSameItems(data);
+                Promise.all([
+                    getFavorite(data[0].id),
+                    setItem(data),
+                    getSameItems(data)
+                ])
             })
             .catch(err => console.log(err))
     }
 
-    function onItemClick(e){
+    function onItemClick(e) {
         const clickedItemName = (e.target.parentNode.id)
         setSameItems([])
         getPageItem(clickedItemName)
     }
 
     function LikeCheck(itemId, favorite_id) {
-        if (favorite_id.includes(`${itemId}`) == true) {
-            setLikeIcon(LikeIcon)
-        } else if (favorite_id.includes(`${itemId}`) == false) {
-            setLikeIcon(NotLikeIcon)
-        }
+        const isFavorite = favorite_id.includes(`${itemId}`);
+        setLikeIcon(isFavorite ? LikeIcon : NotLikeIcon);
     }
 
-    function getFavorite(itemId) {
+    // function getFavorite(itemId) {
+    //     try {
+    //         const UserInf = JSON.parse(localStorage.getItem('userInf'))
+    //         const URL = `http://127.0.0.1:8080/api/user/favorite/id/${UserInf.user_id}`
+    //         fetch(URL)
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 if (data[0]['favorite_items'] != null) {
+    //                     let id = (data[0]['favorite_items'].split(','))
+    //                     setFavorite(id)
+    //                     LikeCheck(itemId, id)
+    //                 } else {
+    //                     setLikeIcon(NotLikeIcon)
+    //                 }
+    //             })
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // }
+
+    async function getFavorite(itemId) {
         try {
-            const UserInf = JSON.parse(localStorage.getItem('userInf'))
-            const URL = `http://127.0.0.1:8080/api/user/favorite/id/${UserInf.user_id}`
-            fetch(URL)
-                .then(response => response.json())
-                .then(data => {
-                    if (data[0]['favorite_items'] != null) {
-                        let id = (data[0]['favorite_items'].split(','))
-                        setFavorite(id)
-                        LikeCheck(itemId, data[0]['favorite_items'].split(','))
-                    } else {
-                        setLikeIcon(NotLikeIcon)
-                    }
-                })
+            const userInfoString = localStorage.getItem('userInf');
+            const { user_id } = JSON.parse(userInfoString);
+            const URL = `http://127.0.0.1:8080/api/user/favorite/id/${user_id}`;
+
+            const response = await fetch(URL);
+            const [data] = await response.json();
+          
+            if (data.favorite_items != null) {
+                const ids = data.favorite_items.split(',');
+                setFavorite(ids);
+                LikeCheck(itemId, ids);
+            } else {
+                setLikeIcon(NotLikeIcon);
+            }
         } catch (err) {
-            console.log(err)
+            console.error('Failed to get favorite:', err);
         }
     }
+      
 
-    function getSameItems(itemCategory) {
+    async function getSameItems(itemCategory) {
         const URL = `http://127.0.0.1:8080/api/items`
-        fetch(URL)
-            .then(response => response.json())
-            .then(data => {
-                const allItems = (data.sort((a, b) => (a.rarity > b.rarity ? 1 : ((b.rarity > a.rarity)) ? -1 : 0)))
-                setSameItems(allItems)
-                sameCheck(allItems, itemCategory[0])
-            })
-            .catch(err => console.log(err))
-
+        try {
+            const response = await fetch(URL);
+            const data = await response.json();
+            const allItems = data.sort((a, b) => (a.rarity > b.rarity ? 1 : b.rarity > a.rarity ? -1 : 0));
+            setSameItems(allItems);
+            sameCheck(allItems, itemCategory[0]);
+        }
+        catch (err) { console.log(err); }
     }
+
+    // function sameCheck(allItems, pageItem) {
+    //     const sameItemsArr = []
+    //     const pageItemCategory = pageItem.category.split(',')
+    //     allItems.map(elem => {
+    //         const matched = pageItemCategory.filter(el => elem.category.split(',').indexOf(el) > -1);
+    //         if (pageItemCategory.length == 1 && elem.category.split(',').length == 1 && pageItem.rarity == elem.rarity) {
+    //             if (matched.length == 1 && elem.name != pageItem.name) {
+    //                 sameItemsArr.push(elem)
+    //             }
+    //         } else {
+    //             if (matched.length > 1 && elem.name != pageItem.name) {
+    //                 sameItemsArr.push(elem)
+    //             }
+    //         }
+    //     })
+    //     setSameItems(sameItemsArr)
+    // }
+
     function sameCheck(allItems, pageItem) {
-        const sameItemsArr = []
-        const pageItemCategory = pageItem.category.split(',')
-        allItems.map(elem => {
-            const matched = pageItemCategory.filter(el => elem.category.split(',').indexOf(el) > -1);
-            if(pageItemCategory.length == 1 && elem.category.split(',').length == 1 && pageItem.rarity == elem.rarity){
-                if (matched.length == 1 && elem.name != pageItem.name) {
-                    sameItemsArr.push(elem)
-                }
-            }else{
-                if (matched.length > 1 && elem.name != pageItem.name) {
-                    sameItemsArr.push(elem)
-                }
-            }
-        })
-        setSameItems(sameItemsArr)
+        const pageItemCategory = pageItem.category.split(',');
+    
+        const sameItemsArr = allItems.filter(elem => {
+            const elemCategories = elem.category.split(',');
+            
+            const matched = pageItemCategory.filter(el => elemCategories.includes(el));
+    
+            const isSingleCategoryMatch = pageItemCategory.length === 1 && elemCategories.length === 1 && pageItem.rarity === elem.rarity && matched.length === 1;
+            const isMultipleCategoryMatch = matched.length > 1;
+    
+            return (isSingleCategoryMatch || isMultipleCategoryMatch) && elem.name !== pageItem.name;
+        });
+    
+        setSameItems(sameItemsArr);
     }
 
     function LikeClick() {
@@ -132,6 +170,7 @@ function ItemByName({ ItemName }) {
         }
     }
 
+
     useEffect(() => {
         getPageItem(ItemName)
     }, [])
@@ -165,25 +204,25 @@ function ItemByName({ ItemName }) {
                         <p>{item.description}</p>
                     </div>
 
-                        {sameItems.length != 0 ? (
-                            <div className="same-items-wrapper">
-                                <h1>Similar items :</h1>
-                                <div className="same-items">
-                                    {sameItems
-                                        .map(item => {
-                                            return (
-                                                <Link key={item.id} id={item.name} to={`/item/${item.name}`} className='items-card' onClick={onItemClick}>
-                                                    <img src={item.img} />
-                                                </Link>
-                                            )
-                                        })
-                                    }
-                                </div>
+                    {sameItems.length != 0 ? (
+                        <div className="same-items-wrapper">
+                            <h1>Similar items :</h1>
+                            <div className="same-items">
+                                {sameItems
+                                    .map(item => {
+                                        return (
+                                            <Link key={item.id} id={item.name} to={`/item/${item.name}`} className='items-card' onClick={onItemClick}>
+                                                <img src={item.img} />
+                                            </Link>
+                                        )
+                                    })
+                                }
                             </div>
-                        ) : (
-                            <div className="same-items-wrapper">
-                                <h1>Similar items not found</h1>
-                            </div>)}
+                        </div>
+                    ) : (
+                        <div className="same-items-wrapper">
+                            <h1>Similar items not found</h1>
+                        </div>)}
 
                 </div>
             ))}
