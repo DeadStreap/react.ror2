@@ -65,10 +65,10 @@ function ItemsList() {
         <div className='items-wrapper'>
             <div className="items-header">
                 <div className="items-header-category">
-                    <button className="items-header-btn" onClick={onHeaderClick}>Name</button>
-                    <button className="items-header-btn" onClick={onHeaderClick}>Rarity</button>
-                    <button className="items-header-btn" onClick={onHeaderClick}>Category</button>
-                    <button className="items-header-btn" onClick={onHeaderClick}>Stack</button>
+                    <button className="items-header-btn" onClick={onHeaderClick} translate="no">Name</button>
+                    <button className="items-header-btn" onClick={onHeaderClick} translate="no">Rarity</button>
+                    <button className="items-header-btn" onClick={onHeaderClick} translate="no">Category</button>
+                    <button className="items-header-btn" onClick={onHeaderClick} translate="no">Stack</button>
                 </div>
                 <div className="items-header-search">
                     <input type='text' placeholder="Search" onChange={searchChange} spellcheck='false'/>

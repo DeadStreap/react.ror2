@@ -71,7 +71,7 @@ a:hover{
 
 /* Home */
 .home-wrapper{
-  font-family: bombardier;
+  font-family: bombardier, Inter;
 }
 .home-wrapper h1{
   font-size: 30px;
@@ -466,7 +466,7 @@ a:hover{
 /* PROFILE */
 .profileCard{
   background: var(--big-card-bg-color);
-  width: 60%;
+  width: 55%;
   margin: 10px auto;
   border-radius: 10px;
   padding: 40px 20px 10px 20px;
