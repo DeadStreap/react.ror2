@@ -37,6 +37,45 @@ const Homepage = () => {
                 </div>
             </div>
 
+            <div className='home-dlc-buy'>
+                <div className='home-dlc-buy-links'>
+                    <a href='https://store.steampowered.com/app/1607890/Risk_of_Rain_2_Survivors_of_the_Void/' target='_blank'>Buy for Steam</a>
+                    <a href='https://store.epicgames.com/ru/p/risk-of-rain-2--survivors-of-the-void' target='_blank'>Buy for Epic</a>
+                </div>
+            </div>
+
+            <div className='home-system-requirements'>
+                <h1>System requirements: </h1>
+                <div className='system-requirements-wrapper'>
+                    <div className='system-requirements-min'>
+                        <h1>MINIMUM:</h1>
+                        <p>Requires a 64-bit processor and operating system</p>
+                        <p>OS: Windows 7 or newer, 64-bit</p>
+                        <p>Processor: Intel Core i3-6100 / AMD FX-8350</p>
+                        <p>Memory: 4 GB RAM</p>
+                        <p>Graphics: GTX 580 / AMD HD 7870</p>
+                        <p>DirectX: Version 11</p>
+                        <p>Network: Broadband Internet connection</p>
+                        <p>Storage: 4 GB available space</p>
+                    </div>
+                    <div className='system-requirements-recommended'>
+                        <h1>RECOMMENDED:</h1>
+                        <p>Requires a 64-bit processor and operating system</p>
+                        <p>OS: Windows 7 or newer, 64-bit</p>
+                        <p>Processor: Intel Core i5-4670K / AMD Ryzen 5 1500X</p>
+                        <p>Memory: 4 GB RAM</p>
+                        <p>Graphics: GTX 680 / AMD HD 7970</p>
+                        <p>DirectX: Version 11</p>
+                        <p>Network: Broadband Internet connection</p>
+                        <p>Storage: 4 GB available space</p>
+                    </div>
+                </div>
+            </div>
+
+            <div className='home-footer'>
+                <img src={Ror2Logo}/>
+            </div>
+
         </div>
     )
 }
