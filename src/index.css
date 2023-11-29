@@ -326,7 +326,7 @@ a:hover{
   color: var(--text-color);
 }
 
-.items-card, .characters-card{
+.items-card, .characters-card, .equipments-card{
   display: flex;
   flex-direction: column;
   gap: 8px 0;
@@ -342,11 +342,18 @@ a:hover{
   width: fit-content;
   padding: 8px 10px;
 }
+.equipments-card{
+  width: fit-content;
+  padding: 8px;
+}
+.equipments-card p{
+  text-wrap: wrap;
+}
 .items-card{
   width: fit-content;
   padding: 8px;
 }
-.items-card img{
+.items-card img, .equipments-card img{
   width: 60px;
   align-self: center;
   justify-content: center;

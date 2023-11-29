@@ -2,8 +2,6 @@ import { Routes, Route, Link } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 
 import { Homepage } from './pages/Homepage';
-import { ArtifactsList } from './pages/ArtifactsList';
-import { Artifact } from './pages/Artifact';
 import { CharactersList } from './pages/CharactersList';
 import { Notfoundpage } from './pages/Notfoundpage';
 import { ItemsList } from './pages/ItemsList';
@@ -56,7 +54,6 @@ function App() {
         </div>
         <div className='header-nav'>
           <Link to="/">Home</Link>
-          <Link to="/artifacts">Artifacts</Link>
           <Link to="/characters">Characters</Link>
           <Link to="/items">Items</Link>
           <Link to="/equipments">Equipment</Link>
@@ -71,8 +68,6 @@ function App() {
       </header>
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/artifacts" element={<ArtifactsList />} />
-        <Route path="/artifact" element={<Artifact />} />
         <Route path="/characters" element={<CharactersList />} />
         <Route path="/items" element={<ItemsList />} />
         <Route path="/item/:ItemName" element={<Item />} />

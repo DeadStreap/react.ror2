@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Items } from '../components/Items'
 import { Link } from 'react-router-dom';
 import axios from '../api/axios'
 

@@ -1,9 +1,13 @@
 import React from 'react';
-const Equipment = () => {
-    return (
-        <div>
-            <h1 className='title'>Equipment</h1>
-        </div>
+import { useParams } from 'react-router-dom';
+import { EquipmentByName } from '../components/EquipmentByName';
+
+
+function Equipment () {
+    const params = useParams()
+    const EquipmentName = params.EquipmentName
+    return(
+            <EquipmentByName EquipmentName={EquipmentName}/>
     )
 }
 
