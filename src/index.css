@@ -14,13 +14,13 @@
   --dlc-buy-links-bg: #9352ff;
 }
 [data-theme="light"]{
-  --bg-color: #f2f2f3;
+  --bg-color: #fff;
   --text-color: #000;
-  --items-bg-color: #ebebf0c5;
-  --items-bg-color-hover: #dedee6;
+  --items-bg-color: #f5f7fb;
+  --items-bg-color-hover: #EDF0FA;
   --search-bg-color: #e0e0e7c5;
   --search-text-color: #0000005e;
-  --big-card-bg-color: #e6e6ebe0;
+  --big-card-bg-color: #e8ecf8;
   --form-label-color: #dcdce9;
   --game-buy-links-bg: #5aa1e3;
   --dlc-buy-links-bg: #9352ff;
