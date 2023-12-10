@@ -1,5 +1,5 @@
 import axios from 'axios'
 
 export default axios.create({
-    URL: "http://localhost:8080/api/"
+    URL: "https://node-ror2.vercel.app/api/"
 })
