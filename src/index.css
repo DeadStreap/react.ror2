@@ -1,5 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
-@import url('https://fonts.cdnfonts.com/css/bombardier');
+@font-face{
+  font-family: Inter;
+  src: url("../public/Inter-VariableFont_slnt\,wght.ttf");
+}
+@font-face{
+  font-family: bombardier;
+  src: url("../public/Bombardier-Regular.ttf");
+}
 
 :root {
   --bg-color: #101010;
@@ -42,7 +48,7 @@ body::-webkit-scrollbar-thumb {
 
 body {
   margin: 0;
-  font-family: 'Inter';
+  font-family: bombardier, Inter;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bg-color);
@@ -73,7 +79,6 @@ a:hover{
 
 /* Home */
 .home-wrapper{
-  font-family: bombardier, Inter;
 }
 .home-wrapper h1{
   font-size: 30px;

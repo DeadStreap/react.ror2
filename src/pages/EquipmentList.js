@@ -12,7 +12,7 @@ function EquipmentList() {
         fetch(URL)
             .then(response => response.json())
             .then(data => {
-                const AllEquipments = data.sort((a, b) => a.name.localeCompare(b.name));
+                const AllEquipments = data.sort((a, b) => a.rarity.localeCompare(b.rarity));
                 setEquipments(AllEquipments)
                 setAllEquipments(AllEquipments)
             })
