@@ -11,7 +11,7 @@ function ItemByName({ ItemName }) {
     const [likeIcon, setLikeIcon] = useState()
     const [favorite, setFavorite] = useState([])
 
-    const BASE_URL = 'http://127.0.0.1:8080/api';
+    const BASE_URL = 'https://node-ror2.vercel.app/api';
 
     async function getPageItem(getItemName) {
         try {

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, Component} from "react";
 import { Link } from 'react-router-dom';
 import axios from '../api/axios'
 
-const REG_URL = 'http://localhost:8080/api/user/register'
+const REG_URL = 'https://node-ror2.vercel.app/api/user/register'
 
 const USER_REGEX = /^[a-zA-Z0-9-_]{2,10}$/;
 const PWD_REGEX = /^[a-zA-Z0-9-_]{4,20}$/;

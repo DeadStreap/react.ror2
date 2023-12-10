@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function CharacterByName( {CharacterName}){
     const [records, setRecords] = useState([])
-    const URL = `http://127.0.0.1:8080/api/character/name/${CharacterName}`
+    const URL = `https://node-ror2.vercel.app/api/character/name/${CharacterName}`
 
     useEffect(()=>{
         fetch(URL)

@@ -3,7 +3,7 @@ import { Link, json } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from '../api/axios'
 
-const AUTH_URL = 'http://localhost:8080/api/user/auth'
+const AUTH_URL = 'https://node-ror2.vercel.app/api/user/auth'
 
 const Auth = ({ getUser }) => {
   const userRef = useRef();

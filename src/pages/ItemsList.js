@@ -8,7 +8,7 @@ function ItemsList() {
     const [allItems, setAllItems] = useState([])
     const [types, setTypes] = useState([])
     const [sortType, setSortType] = useState([])
-    const URL = `http://127.0.0.1:8080/api/items`
+    const URL = `https://node-ror2.vercel.app/api/items`
 
     useEffect(() => {
         getItems()

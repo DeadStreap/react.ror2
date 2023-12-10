@@ -4,7 +4,7 @@ import { Characters } from '../components/Characters';
 
 function CharactersList(){
     const [characters, setCharacters] = useState([])
-    const URL = `http://127.0.0.1:8080/api/characters`
+    const URL = `https://node-ror2.vercel.app/api/characters`
 
     useEffect(()=>{
         fetch(URL)

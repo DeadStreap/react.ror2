@@ -25,7 +25,7 @@ const Profile = ({ getUser }) => {
         if (!userInfoString) return;
 
         const { user_id } = JSON.parse(userInfoString);
-        const URL = `http://127.0.0.1:8080/api/user/favorite/all/${user_id}`;
+        const URL = `https://node-ror2.vercel.app/api/user/favorite/all/${user_id}`;
         try {
             const response = await fetch(URL);
             const data = await response.json();

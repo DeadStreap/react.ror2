@@ -6,7 +6,7 @@ function EquipmentList() {
     const [equipments, setEquipments] = useState([])
     const [allEquipments, setAllEquipments] = useState([])
     const [isSearched, setSearched] = useState(false)
-    const URL = `http://127.0.0.1:8080/api/equipments`
+    const URL = `https://node-ror2.vercel.app/api/equipments`
 
     useEffect(() => {
         fetch(URL)

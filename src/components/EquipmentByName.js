@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function EquipmentByName( {EquipmentName}){
     const [equipment, setEquipment] = useState([])
-    const URL = `http://127.0.0.1:8080/api/equipment/name/${EquipmentName}`
+    const URL = `https://node-ror2.vercel.app/api/equipment/name/${EquipmentName}`
 
     useEffect(()=>{
         fetch(URL)
