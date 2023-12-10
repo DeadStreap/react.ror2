@@ -2,6 +2,8 @@ import React from 'react';
 
 import Ror2Poster from '../icons/Risk of Rain 2 poster.jpg'
 import Ror2Logo from '../icons/Risk of Rain 2 logo.png'
+import gerBoxLogo from '../icons/gearbox_publishing_logo.png'
+import hoppooGamesLogo from '../icons/hopoo-games-logo.png'
 
 const Homepage = () => {
     return (
@@ -41,6 +43,9 @@ const Homepage = () => {
                 <div className='home-dlc-buy-links'>
                     <a href='https://store.steampowered.com/app/1607890/Risk_of_Rain_2_Survivors_of_the_Void/' target='_blank'>Buy for Steam</a>
                     <a href='https://store.epicgames.com/ru/p/risk-of-rain-2--survivors-of-the-void' target='_blank'>Buy for Epic</a>
+                    <a href='https://store.playstation.com/en-us/product/UP0292-CUSA16153_00-RISKSURVIVORSOTV' target='_blank'>Buy for PS4</a>
+                    <a href='https://www.xbox.com/en-US/games/store/risk-of-rain-2-survivors-of-the-void/9NH7P86MLGX8/0010' target='_blank'>Buy for Xbox</a>
+                    <a href='https://www.nintendo.com/us/store/products/survivors-of-the-void-70050000034995-switch/' target='_blank'>Buy for Switch</a>
                 </div>
             </div>
 
@@ -72,9 +77,23 @@ const Homepage = () => {
                 </div>
             </div>
 
-            <div className='home-footer'>
-                <img src={Ror2Logo}/>
-            </div>
+            <footer>
+                <div className="footer-links">
+                    <div className="publishers-links">
+                        <a href="https://hopoogames.com/"><img id='hopoo-logo' src={hoppooGamesLogo}/></a>
+                        <a href="https://www.gearboxpublishing.com/"><img id='gearbox-logo' src={gerBoxLogo}/></a>
+                    </div>
+                    <div className="useful-links">
+                        <a href="https://www.riskofrain.com/">Official Site</a>
+                        <a href="https://store.steampowered.com/app/632360/Risk_of_Rain_2/">Steam Page</a>
+                        <a href="https://store.epicgames.com/ru/p/risk-of-rain-2">Epic Games Page</a>
+                    </div>
+                </div>
+                <div className="footer-text">
+                    <img src={Ror2Logo}></img> 
+                    <p>© 2023</p> 
+                </div>
+            </footer>
 
         </div>
     )
