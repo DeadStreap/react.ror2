@@ -743,6 +743,7 @@ footer{
 }
 .big-card-header{
   flex-direction: column;
+  gap: 15px 0;
 }
 /* Home-game-available */
 .game-available-links{
