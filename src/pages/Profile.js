@@ -1,17 +1,26 @@
 import React, { useEffect, useState, useRef, Component } from "react";
 import { Link } from 'react-router-dom';
 import { FavoriteItem } from '../components/FavoriteItem';
+import AvatarPopup from "../components/AvatarPopup";
+import axios from '../api/axios'
 
 
 const Profile = ({ getUser }) => {
+
+    const [modalActive, setModalActive] = useState(false)
 
     if (localStorage.getItem('userInf')) {
         var login = JSON.parse(localStorage.getItem('userInf')).login
         var email = JSON.parse(localStorage.getItem('userInf')).email
         var user_img = JSON.parse(localStorage.getItem('userInf')).user_img
+        var user_id = JSON.parse(localStorage.getItem('userInf')).user_id
     }
+
+    const [userImg, setUserImg] = useState(user_img)
+
     const handleClick = () => {
         localStorage.removeItem('userInf')
+        setUserImg()
         getUser('')
     }
 
@@ -38,6 +47,27 @@ const Profile = ({ getUser }) => {
         getFavorites()
     }, [])
 
+    async function avatarDelete() {
+        try{
+            const UpadateAvatarURL = 'https://node-ror2.vercel.app/api/user/delete/avatar'
+            const url = ({id: user_id})
+            const response = await axios.post(UpadateAvatarURL, url,
+             {
+              headers: {"Content-Type": 'application/json'}
+             });
+             let userinf = {
+              login: login,
+              email: email,
+              user_img: null,
+              user_id: user_id
+            }
+            localStorage.setItem('userInf', JSON.stringify(userinf))
+            setUserImg(null)
+          } catch (err){
+              console.error('Failed to fetch favorites:', err);
+          }
+    }
+
     const FavoriteItems = userFavoritesItem.map((item, index) => 
         <FavoriteItem key={index} item={item} />
     )
@@ -47,13 +77,14 @@ const Profile = ({ getUser }) => {
                 <>
                     <div className="profileInf">
 
-                        {user_img == null ? (
+                        {userImg == null ? (
                             <div className="profileUploadPhoto">
                                 <p>You don't have user photo.</p>
-                                <Link to="/">Upload user photo</Link>
+                                <button onClick={() => setModalActive(true)}>Upload user photo</button>
+                                <AvatarPopup active={modalActive} setActive={setModalActive} setUserImg={setUserImg}/>
                             </div>
                         ) : (
-                            <img src={user_img} />
+                            <img src={userImg} onClick={avatarDelete}/>
                         )}
                         <div className="profileUserText">
                             <div>{login}</div>

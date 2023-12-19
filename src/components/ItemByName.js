@@ -8,7 +8,7 @@ import LikeIcon from '../icons/actove-like-icon.svg'
 function ItemByName({ ItemName }) {
     const [Item, setItem] = useState([])
     const [sameItems, setSameItems] = useState([])
-    const [likeIcon, setLikeIcon] = useState()
+    const [likeIcon, setLikeIcon] = useState(NotLikeIcon)
     const [favorite, setFavorite] = useState([])
 
     const BASE_URL = 'https://node-ror2.vercel.app/api';

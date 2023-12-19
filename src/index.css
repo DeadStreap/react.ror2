@@ -602,6 +602,9 @@ footer{
 .profileInf img{
   width: 70px;
 }
+.profileInf img:hover{
+  opacity: 0.2;
+}
 .profileUserText{
   display: flex;
   flex-direction: column;
@@ -621,6 +624,51 @@ footer{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.profileUploadPhoto > button{
+  text-decoration: underline;
+}
+.avatar-popup-wrapper{
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.avatar-popup-wrapper-active{
+  opacity: 1;
+  pointer-events: all;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.avatar-popup{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 40px 0;
+  width: 400px;
+  height: 200px;
+  background-color: var(--big-card-bg-color);
+  padding: 25px 10px;
+  border-radius: 5px;
+}
+.avatar-popup input{
+  
+}
+.avatar-popup input{
+  border-radius: 5px;
+  background-color: var(--search-bg-color);
+  width: 60%;
+  padding: 5px 8px;
+  text-align: center;
+  background-size: 20px 20px;
+}
+.avatar-popup > input::-webkit-input-placeholder{
+  color: var(--search-text-color);
 }
 
 /* profile-favorite-items */
@@ -696,7 +744,7 @@ footer{
   align-self: center;
 }
 .home-dlc-buy::before{
-  content: "Risk of rain 2 dlc";
+  content: "Risk of Rain 2 dlc";
   display: flex;
   justify-content: center;
   align-items: center;

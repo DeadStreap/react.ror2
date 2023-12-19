@@ -66,6 +66,7 @@ function App() {
           <Link to="/authorization">Sign-in</Link>)}
         </div>
       </header>
+      
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/characters" element={<CharactersList />} />
