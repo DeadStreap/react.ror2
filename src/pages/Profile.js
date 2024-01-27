@@ -14,6 +14,7 @@ const Profile = ({ getUser }) => {
         var email = JSON.parse(localStorage.getItem('userInf')).email
         var user_img = JSON.parse(localStorage.getItem('userInf')).user_img
         var user_id = JSON.parse(localStorage.getItem('userInf')).user_id
+        var isAdmin = JSON.parse(localStorage.getItem('userInf')).isAdmin
     }
 
     const [userImg, setUserImg] = useState(user_img)
@@ -89,6 +90,7 @@ const Profile = ({ getUser }) => {
                         <div className="profileUserText">
                             <div>{login}</div>
                             <div>{email}</div>
+                            {isAdmin ? (<Link to="/admindashboard">Go admin panel</Link>) : (<></>)}
                         </div>
 
                     </div>

@@ -611,6 +611,9 @@ footer{
   gap: 5px;
   justify-content: center;
 }
+.profileUserText a{
+  text-decoration: underline;
+}
 .profileNotAuth{
   display: flex;
   flex-direction: column;
@@ -684,6 +687,25 @@ footer{
   justify-content: center;
   gap: 10px;
   margin: 10px 0;
+}
+
+/* ADMIN */
+.admin-dashboard-wrapper{
+  display: flex;
+}
+.admin-dashboard-menu{
+ background-color: var(--big-card-bg-color);
+ height: 90vh;
+ display: flex;
+ flex-direction: column;
+ width: 15%;
+ gap: 10px 0;
+ align-items: center;
+}
+.admin-dashboard-menu a{
+  font-size: 18px;
+  width: 85%;
+  padding: 10px 0;
 }
 
 @media screen and (max-width: 1920px) {

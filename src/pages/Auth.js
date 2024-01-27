@@ -27,7 +27,8 @@ const Auth = ({ getUser }) => {
         login: response.data[0]['login'],
         email: response.data[0]['email'],
         user_img: response.data[0]['img'],
-        user_id: response.data[0]['id']
+        user_id: response.data[0]['id'],
+        isAdmin: response.data[0]['admin']
       }
       setLogin(response.data[0]['login'])
       localStorage.setItem('userInf', JSON.stringify(userinf))
