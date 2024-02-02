@@ -36,7 +36,7 @@ function AdminItem() {
                     <div className="big-card-header">
 
                         <div className="big-card-header-img">
-                            <img src={item.img} />
+                            <div className='itemChangeInfText' contenteditable="true"> {item.img} </div>
                             <h1><div className='itemChangeInfText' contenteditable="true"> {item.name} </div></h1>
                         </div>
 

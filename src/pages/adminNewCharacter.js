@@ -14,27 +14,28 @@ function AdminNewCharacter(){
                     <div className="big-card-header">
 
                         <div className="big-card-header-img">
-                            <img/>
-                            <h1> <div className='itemChangeInfText' contenteditable="true">  </div> </h1>
+                            <input type="text" placeholder="Character image URL"/>
+                            <h1><input type="text" placeholder="Name"/></h1>
                         </div>
 
                         <div className="big-card-header-stats">
-                            <p>Health: <div className='itemChangeInfText' contenteditable="true"> </div> </p>
-                            <p>Health regen: <div className='itemChangeInfText' contenteditable="true"> </div> </p>
-                            <p>Damage: <div className='itemChangeInfText' contenteditable="true">  </div> </p>
-                            <p>Speed: <div className='itemChangeInfText' contenteditable="true">  </div> </p>
-                            <p>Armor: <div className='itemChangeInfText' contenteditable="true">  </div> </p>
+                            <p>Health: <input type="text" placeholder="Health"/> </p>
+                            <p>Health regen: <input type="text" placeholder="Health regen"/> </p>
+                            <p>Damage: <input type="text" placeholder="Damage"/> </p>
+                            <p>Speed: <input type="text" placeholder="Speed"/> </p>
+                            <p>Armor: <input type="text" placeholder="Armor"/> </p>
                         </div>
 
                     </div>
 
                     <div className="big-card-text">
-                        <div className='itemChangeInfText' contenteditable="true">  </div>
+                        <div className='itemChangeInfText' contenteditable="true">Description</div>
                     </div>
 
-                </div>
-                <div className="same-items-wrapper">
-                    <button className="infChangeBtn">Save</button>
+                    <div className="same-items-wrapper">
+                        <button className="infChangeBtn">Save</button>
+                    </div>
+
                 </div>
         </div>
     )

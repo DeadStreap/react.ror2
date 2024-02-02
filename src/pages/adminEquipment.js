@@ -26,7 +26,7 @@ function AdminEquipment (){
                     <div className="big-card-header">
 
                         <div className="big-card-header-img">
-                            <img src={item.img}/>
+                            <div className='itemChangeInfText' contenteditable="true"> {item.img} </div>
                             <h1>  <input className='itemChangeInfText' type="text" defaultValue={item.name}/> </h1>
                         </div>
 
