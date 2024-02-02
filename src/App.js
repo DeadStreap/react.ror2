@@ -16,11 +16,17 @@ import { Auth } from './pages/Auth';
 import { Profile } from './pages/Profile';
 import {ThemeControl} from './components/ThemeControl'
 
-import { AdminItems} from './pages/adminItems'
-import { AdminCharacters} from './pages/adminCharacters'
+import { AdminItems } from './pages/adminItems'
+import { AdminItem } from './pages/adminItem'
+import { AdminNewItem } from './pages/adminNewItem'
+import { AdminCharacters } from './pages/adminCharacters'
+import { AdminCharacter } from './pages/adminCharacter'
+import { AdminNewCharacter } from './pages/adminNewCharacter'
 import { AdminEquipments} from './pages/adminEquipments'
-import { AdminUsers} from './pages/adminUsers'
-import { AdminDashboard} from './pages/adminDashboard'
+import { AdminEquipment } from './pages/adminEquipment'
+import { AdminNewEquipment } from './pages/adminNewEquipment'
+import { AdminUsers } from './pages/adminUsers'
+import { AdminDashboard } from './pages/adminDashboard'
 
 function App() {
   const [login, setLogin] = useState('');
@@ -81,6 +87,7 @@ function App() {
       
       <Routes>
         <Route path="/" element={<Homepage />} />
+
         <Route path="/characters" element={<CharactersList />} />
         <Route path="/character/:CharacterName" element={<Character />} />
         <Route path="/items" element={<ItemsList />} />
@@ -97,6 +104,13 @@ function App() {
         <Route path="/admindashboard/items" element={<AdminItems />} />
         <Route path="/admindashboard/equipments" element={<AdminEquipments />} />
         <Route path="/admindashboard/users" element={<AdminUsers />} />
+
+        <Route path="/admin/character/:CharacterName" element={<AdminCharacter />} />
+        <Route path="/admin/newcharacter" element={<AdminNewCharacter />} />
+        <Route path="/admin/item/:ItemName" element={<AdminItem />} />
+        <Route path="/admin/newitem" element={<AdminNewItem />} />
+        <Route path="/admin/equipment/:EquipmentName" element={<AdminEquipment />} />
+        <Route path="/admin/newequipment" element={<AdminNewEquipment />} />
 
         <Route path="*" element={<Notfoundpage />} />
       </Routes>

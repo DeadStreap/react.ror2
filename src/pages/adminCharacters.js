@@ -43,8 +43,8 @@ function AdminCharacters() {
 
                         <div className="items-content">
                         <Link to='/admin/newCharacter' className='items-card'>
-                                <img src={plusIcon} />
-                            </Link>
+                            <img src={plusIcon} />
+                        </Link>
                             {characters.map(item => {
                                 return (
                                     <Link to={`/admin/character/${item.name}`} className='characters-card' >

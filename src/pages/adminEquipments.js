@@ -43,7 +43,7 @@ function AdminEquipments() {
                     <div className="items-content">
 
                         <Link to='/admin/newItem' className='items-card'>
-                            <img src={plusIcon} />
+                            <img src={plusIcon}/> 
                         </Link>
 
                         {equipments.map(item => {

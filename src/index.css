@@ -442,6 +442,12 @@ footer{
   min-width: 150px;
   min-height: 150px;
 }
+.big-card-header-img img{
+  width: 100px;
+}
+.big-card-header-img input{
+  text-align: center;
+}
 .big-card-header-stats{
   display: flex;
   flex-direction: column;
@@ -450,10 +456,13 @@ footer{
   gap: 10px 0;
   padding: 0 5px;
 }
-.big-card-header-img img{
-  width: 100px;
-}
+.big-card-header-stats p{
+  display: flex;
 
+}
+.itemChangeInfText{
+  color: var(--search-text-color);
+}
 .big-card h1{
   text-align: center;
 }
@@ -468,7 +477,6 @@ footer{
   padding: 25px 0 0 0;
   line-height: 1.4;
 }
-
 .big-card-back{
   align-self: flex-start;
   padding: 0px 20px;
@@ -706,6 +714,13 @@ footer{
   font-size: 18px;
   width: 85%;
   padding: 10px 0;
+}
+
+.infChangeBtn{
+  background-color: #6fb740;
+  font-size: 25px;
+  padding: 8px 20px;
+  border-radius: 8px;
 }
 
 @media screen and (max-width: 1920px) {
