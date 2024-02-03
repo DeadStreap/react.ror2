@@ -20,8 +20,8 @@ function AdminEquipments() {
             .catch(err => console.log(err))
     }, [])
 
-    function checkAdmin() {
-        if (JSON.parse(localStorage.getItem('userInf')).isAdmin == 0) {
+    function checkAdmin(){
+        if(!localStorage.getItem('userInf') || JSON.parse(localStorage.getItem('userInf')).isAdmin == 0){
             window.location.href = "/";
         }
     }

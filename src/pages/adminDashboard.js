@@ -9,7 +9,7 @@ function AdminDashboard () {
     }, [])
 
     function checkAdmin(){
-        if(JSON.parse(localStorage.getItem('userInf')).isAdmin == 0){
+        if(!localStorage.getItem('userInf') || JSON.parse(localStorage.getItem('userInf')).isAdmin == 0){
             window.location.href = "/";
         }
     }

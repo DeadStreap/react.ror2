@@ -7,7 +7,6 @@ import plusIcon from '../icons/greenPlus.png'
 
 function AdminCharacters() {
     const URL = `https://node-ror2.vercel.app/api/characters`
-
     const [characters, setCharacters] = useState([])
 
     useEffect(()=>{
@@ -18,8 +17,8 @@ function AdminCharacters() {
         .catch(err => console.log(err))
     }, [])
 
-    function checkAdmin() {
-        if (JSON.parse(localStorage.getItem('userInf')).isAdmin == 0) {
+    function checkAdmin(){
+        if(!localStorage.getItem('userInf') || JSON.parse(localStorage.getItem('userInf')).isAdmin == 0){
             window.location.href = "/";
         }
     }

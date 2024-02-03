@@ -6,30 +6,24 @@ import plusIcon from '../icons/greenPlus.png'
 
 function AdminItems() {
     const [items, addItems] = useState([])
-    const [isSearched, setSearched] = useState(false)
-    const [allItems, setAllItems] = useState([])
-    const [types, setTypes] = useState([])
-    const [sortType, setSortType] = useState([])
     const URL = `https://node-ror2.vercel.app/api/items`
 
     useEffect(() => {
         checkAdmin()
         getItems()
     }, [])
-
-    function checkAdmin() {
-        if (JSON.parse(localStorage.getItem('userInf')).isAdmin == 0) {
+    
+    function checkAdmin(){
+        if(!localStorage.getItem('userInf') || JSON.parse(localStorage.getItem('userInf')).isAdmin == 0){
             window.location.href = "/";
         }
     }
-
     function getItems() {
         fetch(URL)
             .then(response => response.json())
             .then(data => {
                 const allitems = data.sort((a, b) => a.rarity.localeCompare(b.rarity));
                 addItems(allitems)
-                setAllItems(allitems)
             })
             .catch(err => console.log(err))
     }

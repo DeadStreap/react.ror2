@@ -1,8 +1,18 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from 'react-router-dom';
 
 function AdminNewEquipment (){
 
+    useEffect(() => {
+        checkAdmin()
+    }, [])
+
+    function checkAdmin(){
+        if(!localStorage.getItem('userInf') || JSON.parse(localStorage.getItem('userInf')).isAdmin == 0){
+            window.location.href = "/";
+        }
+    }
+    
     return(
         <div className='big-card-wrapper'>
                 <div className='big-card'>

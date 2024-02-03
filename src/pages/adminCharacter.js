@@ -8,11 +8,18 @@ function AdminCharacter(){
     const URL = `https://node-ror2.vercel.app/api/character/name/${CharacterName}`
 
     useEffect(()=>{
+        checkAdmin()
         fetch(URL)
         .then(response => response.json())
         .then(data => setRecords(data))
         .catch(err => console.log(err))
     }, [])
+
+    function checkAdmin(){
+        if(!localStorage.getItem('userInf') || JSON.parse(localStorage.getItem('userInf')).isAdmin == 0){
+            window.location.href = "/";
+        }
+    }
 
     return(
         <div className='big-card-wrapper'>

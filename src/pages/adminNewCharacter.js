@@ -1,7 +1,17 @@
-import React, { useEffect, useState} from "react";
-import { Link, useParams } from 'react-router-dom';
+import React, { useEffect }from "react";
+import { Link } from 'react-router-dom';
+import axios from '../api/axios'
 
 function AdminNewCharacter(){
+    useEffect(() => {
+        checkAdmin()
+    }, [])
+
+    function checkAdmin(){
+        if(!localStorage.getItem('userInf') || JSON.parse(localStorage.getItem('userInf')).isAdmin == 0){
+            window.location.href = "/";
+        }
+    }
 
     return(
         <div className='big-card-wrapper'>

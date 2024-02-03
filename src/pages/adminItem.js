@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from 'react-router-dom';
 import axios from '../api/axios'
 
+import trashIcon from '../icons/trash.svg'
+
 function AdminItem() {
     const params = useParams()
     const ItemName = params.ItemName
@@ -21,8 +23,19 @@ function AdminItem() {
 
 
     useEffect(() => {
+        checkAdmin()
         getPageItem(ItemName)
     }, [])
+
+    function checkAdmin(){
+        if(!localStorage.getItem('userInf') || JSON.parse(localStorage.getItem('userInf')).isAdmin == 0){
+            window.location.href = "/";
+        }
+    }
+
+    function deleteItem(){
+        console.log('delete')
+    }
 
     return (
         <div className='big-card-wrapper'>
@@ -31,6 +44,7 @@ function AdminItem() {
 
                     <div className="big-card-back">
                         <Link to={"/admindashboard/items"}>↩Back</Link>
+                        <button className="like-btn" onClick={deleteItem}><img  src={trashIcon} /></button>
                     </div>
 
                     <div className="big-card-header">
