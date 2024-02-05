@@ -1,6 +1,8 @@
 import React, { useEffect, useState} from "react";
 import { Link, useParams } from 'react-router-dom';
 
+import trashIcon from '../icons/trash.svg'
+
 function AdminEquipment (){
     const params = useParams()
     const EquipmentName = params.EquipmentName
@@ -20,6 +22,7 @@ function AdminEquipment (){
             window.location.href = "/";
         }
     }
+    function deleteItem(){}
 
     return(
         <div className='big-card-wrapper'>
@@ -28,24 +31,25 @@ function AdminEquipment (){
 
                     <div className="big-card-back">
                         <Link to={"/admindashboard/equipments"}>↩Back</Link>
+                        <button className="like-btn" onClick={deleteItem}><img  src={trashIcon} /></button>
                     </div>
 
                     <div className="big-card-header">
 
                         <div className="big-card-header-img">
-                            <div className='itemChangeInfText' contenteditable="true"> {item.img} </div>
+                            <div className='itemChangeInfText' contentEditable="true"> {item.img} </div>
                             <h1>  <input className='itemChangeInfText' type="text" defaultValue={item.name}/> </h1>
                         </div>
 
                         <div className="big-card-header-stats">
-                            <p>Rarity:  <div className='itemChangeInfText' contenteditable="true"> {item.rarity} </div> </p>
-                            <p>Cooldown:  <div className='itemChangeInfText' contenteditable="true"> {item.cooldown} </div> s</p>
+                            <p>Rarity:  <div className='itemChangeInfText' contentEditable="true"> {item.rarity} </div> </p>
+                            <p>Cooldown:  <div className='itemChangeInfText' contentEditable="true"> {item.cooldown} </div> s</p>
                         </div>
 
                     </div>
 
                     <div className="big-card-text">
-                        <div className='itemChangeInfText' contenteditable="true">{item.description}</div>
+                        <div className='itemChangeInfText' contentEditable="true">{item.description}</div>
                     </div>
 
                 </div>

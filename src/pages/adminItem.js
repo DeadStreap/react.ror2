@@ -50,20 +50,20 @@ function AdminItem() {
                     <div className="big-card-header">
 
                         <div className="big-card-header-img">
-                            <div className='itemChangeInfText' contenteditable="true"> {item.img} </div>
-                            <h1><div className='itemChangeInfText' contenteditable="true"> {item.name} </div></h1>
+                            <div className='itemChangeInfText' contentEditable="true"> {item.img} </div>
+                            <h1><div className='itemChangeInfText' contentEditable="true"> {item.name} </div></h1>
                         </div>
 
                         <div className="big-card-header-stats">
-                            <p>Rarity:  <div className='itemChangeInfText' contenteditable="true"> {item.rarity} </div> </p>
-                            <p>Category: <div className='itemChangeInfText' contenteditable="true"> {item.category} </div> </p>
-                            <p>Stack: <div className='itemChangeInfText' contenteditable="true"> {item.stack} </div></p>
+                            <p>Rarity:  <div className='itemChangeInfText' contentEditable="true"> {item.rarity} </div> </p>
+                            <p>Category: <div className='itemChangeInfText' contentEditable="true"> {item.category} </div> </p>
+                            <p>Stack: <div className='itemChangeInfText' contentEditable="true"> {item.stack} </div></p>
                         </div>
 
                     </div>
 
                     <div className="big-card-text">
-                        <div className='itemChangeInfText' contenteditable="true"> {item.description} </div>
+                        <div className='itemChangeInfText' contentEditable="true"> {item.description} </div>
                     </div>
                     
                     <div className="same-items-wrapper">

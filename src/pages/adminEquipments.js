@@ -42,7 +42,7 @@ function AdminEquipments() {
                 <div className='items-wrapper'>
                     <div className="items-content">
 
-                        <Link to='/admin/newItem' className='items-card'>
+                        <Link to='/admin/newEquipment' className='items-card'>
                             <img src={plusIcon}/> 
                         </Link>
 

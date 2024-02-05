@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect }from "react";
 import { Link } from 'react-router-dom';
 import axios from '../api/axios'
 
@@ -65,11 +65,11 @@ function AdminNewItem() {
                     </div>
 
                     <div className="big-card-text">
-                        <div className='itemChangeInfText' contenteditable="true" id="itemDescription"> Description</div>
+                        <div className='itemChangeInfText' contentEditable="true" id="itemDescription"> Description</div>
                     </div>
 
                     <div className="big-card-text">
-                        <div className='itemChangeInfText' contenteditable="true" id="itemAbout"> About </div>
+                        <div className='itemChangeInfText' contentEditable="true" id="itemAbout"> About </div>
                     </div>
                     
                     <div className="same-items-wrapper">

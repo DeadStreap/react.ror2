@@ -1,6 +1,8 @@
 import React, { useEffect, useState} from "react";
 import { Link, useParams } from 'react-router-dom';
 
+import trashIcon from '../icons/trash.svg'
+
 function AdminCharacter(){
     const params = useParams()
     const CharacterName = params.CharacterName
@@ -21,6 +23,8 @@ function AdminCharacter(){
         }
     }
 
+    function deleteItem(){}
+
     return(
         <div className='big-card-wrapper'>
                 {records.map((item, index) => (
@@ -28,27 +32,28 @@ function AdminCharacter(){
 
                     <div className="big-card-back">
                         <Link to={"/admindashboard/characters"}>↩Back</Link>
+                        <button className="like-btn" onClick={deleteItem}><img  src={trashIcon} /></button>
                     </div>
 
                     <div className="big-card-header">
 
                         <div className="big-card-header-img">
-                            <div className='itemChangeInfText' contenteditable="true"> {item.img} </div>
-                            <h1> <div className='itemChangeInfText' contenteditable="true"> {item.name} </div> </h1>
+                            <div className='itemChangeInfText' contentEditable="true"> {item.img} </div>
+                            <h1> <div className='itemChangeInfText' contentEditable="true"> {item.name} </div> </h1>
                         </div>
 
                         <div className="big-card-header-stats">
-                            <p>Health: <div className='itemChangeInfText' contenteditable="true"> {item.health} </div> </p>
-                            <p>Health regen: <div className='itemChangeInfText' contenteditable="true"> {item.health_regen} </div> </p>
-                            <p>Damage: <div className='itemChangeInfText' contenteditable="true"> {item.damage} </div> </p>
-                            <p>Speed: <div className='itemChangeInfText' contenteditable="true"> {item.speed} </div> </p>
-                            <p>Armor: <div className='itemChangeInfText' contenteditable="true"> {item.armor} </div> </p>
+                            <p>Health: <div className='itemChangeInfText' contentEditable="true"> {item.health} </div> </p>
+                            <p>Health regen: <div className='itemChangeInfText' contentEditable="true"> {item.health_regen} </div> </p>
+                            <p>Damage: <div className='itemChangeInfText' contentEditable="true"> {item.damage} </div> </p>
+                            <p>Speed: <div className='itemChangeInfText' contentEditable="true"> {item.speed} </div> </p>
+                            <p>Armor: <div className='itemChangeInfText' contentEditable="true"> {item.armor} </div> </p>
                         </div>
 
                     </div>
 
                     <div className="big-card-text">
-                        <div className='itemChangeInfText' contenteditable="true"> {item.description} </div>
+                        <div className='itemChangeInfText' contentEditable="true"> {item.description} </div>
                     </div>
 
                 </div>
