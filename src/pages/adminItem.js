@@ -11,9 +11,9 @@ function AdminItem() {
 
     const BASE_URL = 'https://node-ror2.vercel.app/api';
 
-    async function getPageItem(getItemName) {
+    async function getPageItem(ItemName) {
         try {
-            const response = await axios.get(`${BASE_URL}/item/name/${getItemName}`);
+            const response = await axios.get(`${BASE_URL}/item/name/${ItemName}`);
             const data = response.data;
             setItem(data);
         } catch (err) {
@@ -32,9 +32,16 @@ function AdminItem() {
             window.location.href = "/";
         }
     }
-
-    function deleteItem(){
-        console.log('delete')
+    async function delItem(itemId) {
+        const itemInf = ({id: itemId})
+        try{
+            const response = await axios.post(`${BASE_URL}/delete/item`, itemInf,
+             {
+              headers: {"Content-Type": 'application/json'}
+             });
+             window.location.href = "/admindashboard/items";
+          } catch (err){
+          }
     }
 
     return (
@@ -44,7 +51,7 @@ function AdminItem() {
 
                     <div className="big-card-back">
                         <Link to={"/admindashboard/items"}>↩Back</Link>
-                        <button className="like-btn" onClick={deleteItem}><img  src={trashIcon} /></button>
+                        <button className="like-btn" onClick={() => delItem(item.id)}><img  src={trashIcon} /></button>
                     </div>
 
                     <div className="big-card-header">
