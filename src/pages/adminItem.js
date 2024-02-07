@@ -44,6 +44,30 @@ function AdminItem() {
           }
     }
 
+    function saveClick(){
+        const itemImg = document.getElementById('itemImg').innerText;
+        const itemName = document.getElementById('itemName').innerText;
+        const itemRarity = document.getElementById('itemRarity').innerText;
+        const itemCategory = document.getElementById('itemCategory').innerText;
+        const itemStack = document.getElementById('itemStack').innerText;
+        const itemFromDLC = document.getElementById('itemFromDLC').checked;
+        const itemAbout = document.getElementById('itemAbout').innerText;
+        const itemDescription = document.getElementById('itemDescription').innerText;
+        const itemInf = ({name: itemName, about: itemAbout, rarity: itemRarity, category: itemCategory, stack: itemStack, description: itemDescription, FromDLC: itemFromDLC, img: itemImg, id: Item[0].id})
+        updateItem(itemInf)
+    }
+
+    const updateItem = async (itemInf) => {
+        try{
+            const response = await axios.post(`${BASE_URL}/update/item`, itemInf,
+             {
+              headers: {"Content-Type": 'application/json'}
+             });
+             window.location.href = "/admindashboard/items";
+          } catch (err){
+          }
+    }
+
     return (
         <div className='big-card-wrapper'>
             {Item.map((item, index) => (
@@ -57,24 +81,35 @@ function AdminItem() {
                     <div className="big-card-header">
 
                         <div className="big-card-header-img">
-                            <div className='itemChangeInfText' contentEditable="true"> {item.img} </div>
-                            <h1><div className='itemChangeInfText' contentEditable="true"> {item.name} </div></h1>
+                            <div className='itemChangeInfText' contentEditable="true" id='itemImg'> {item.img} </div>
+                            <h1><div className='itemChangeInfText' contentEditable="true" id='itemName'> {item.name} </div></h1>
                         </div>
 
                         <div className="big-card-header-stats">
-                            <p>Rarity:  <div className='itemChangeInfText' contentEditable="true"> {item.rarity} </div> </p>
-                            <p>Category: <div className='itemChangeInfText' contentEditable="true"> {item.category} </div> </p>
-                            <p>Stack: <div className='itemChangeInfText' contentEditable="true"> {item.stack} </div></p>
+                            <p>Rarity:  <div className='itemChangeInfText' contentEditable="true" id='itemRarity' > {item.rarity} </div> </p>
+                            <p>Category: <div className='itemChangeInfText' contentEditable="true" id='itemCategory'>  {item.category} </div> </p>
+                            <p>Stack: <div className='itemChangeInfText' contentEditable="true" id='itemStack'> {item.stack} </div></p>
+                            {item.FromDLC == 'true' ? (
+                                <p>FromDLC: <input type="checkbox" id="itemFromDLC" checked="checked"/></p>
+                            ) : (
+                                <p>FromDLC: <input type="checkbox" id="itemFromDLC"/></p>
+                            )}
                         </div>
 
                     </div>
 
                     <div className="big-card-text">
-                        <div className='itemChangeInfText' contentEditable="true"> {item.description} </div>
+                        <p>Description</p>
+                        <div className='itemChangeInfText' contentEditable="true" id='itemDescription'> {item.description} </div>
+                    </div>
+
+                    <div className="big-card-text">
+                        <p>About</p>
+                        <div className='itemChangeInfText' contentEditable="true" id="itemAbout"> {item.about} </div>
                     </div>
                     
                     <div className="same-items-wrapper">
-                        <button className="infChangeBtn">Save</button>
+                        <button className="infChangeBtn" onClick={saveClick}>Save</button>
                     </div>
 
                 </div>
