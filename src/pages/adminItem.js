@@ -32,6 +32,7 @@ function AdminItem() {
             window.location.href = "/";
         }
     }
+
     async function delItem(itemId) {
         const itemInf = ({id: itemId})
         try{

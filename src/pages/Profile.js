@@ -90,7 +90,7 @@ const Profile = ({ getUser }) => {
                         <div className="profileUserText">
                             <div>{login}</div>
                             <div>{email}</div>
-                            {isAdmin ? (<Link to="/admindashboard">Go admin panel</Link>) : (<></>)}
+                            {isAdmin ? (<Link to="/admindashboard/items">Go admin panel</Link>) : (<></>)}
                         </div>
 
                     </div>
