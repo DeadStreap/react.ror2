@@ -10,7 +10,7 @@ function AdminUsers() {
     const [allItems, setAllItems] = useState([])
     const [types, setTypes] = useState([])
     const [sortType, setSortType] = useState([])
-    const URL = `https://node-ror2.vercel.app/api/items`
+    const URL = `https://node-ror2.vercel.app/api/users`
 
     useEffect(() => {
         checkAdmin()
@@ -57,36 +57,14 @@ function AdminUsers() {
                 <div className='items-wrapper'>
                     <div className="items-content">
 
-                        <Link to='/admin/newItem' className='items-card'>
-                            <img src={plusIcon} />
-                        </Link>
-
-                        {types != false ?
-                            (types
-                                .map(type => {
-                                    return (
-                                        <div key={type} className="filtered-items-container">
-                                            <h1>{type}</h1>
-                                            <div className="types-items-content">
-                                                {items
-                                                    .filter(item => item[sortType] === type)
-                                                    .map(filteredItem => (
-                                                        <ItemLink key={filteredItem.id} item={filteredItem} isSearched={isSearched} />
-                                                    ))
-                                                }
-                                            </div>
-                                        </div>
-                                    )
-                                })) :
-                            (items
-                                .map(item => {
-                                    return (
-                                        <Link key={item.id} to={`/admin/item/${item.name}`} className='items-card'>
-                                            <img src={item.img} />
-                                            {isSearched && <div>{item.name}</div>}
-                                        </Link>
-                                    )
-                                }))
+                    {items.map(item => {
+                            return (
+                                <Link key={item.id} to={`/admin/user/${item.id}`} className='items-card'>
+                                    <img src={item.img} />
+                                    <p>{item.login}</p>
+                                </Link>
+                            )
+                        })
                         }
 
                     </div>

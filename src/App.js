@@ -26,6 +26,7 @@ import { AdminEquipments} from './pages/adminEquipments'
 import { AdminEquipment } from './pages/adminEquipment'
 import { AdminNewEquipment } from './pages/adminNewEquipment'
 import { AdminUsers } from './pages/adminUsers'
+import { AdminUser } from './pages/adminUser'
 
 function App() {
   const [login, setLogin] = useState('');
@@ -103,6 +104,7 @@ function App() {
         <Route path="/admindashboard/equipments" element={<AdminEquipments />} />
         <Route path="/admindashboard/users" element={<AdminUsers />} />
 
+        <Route path="/admin/user/:UserId" element={<AdminUser />} />
         <Route path="/admin/character/:CharacterName" element={<AdminCharacter />} />
         <Route path="/admin/newcharacter" element={<AdminNewCharacter />} />
         <Route path="/admin/item/:ItemName" element={<AdminItem />} />
