@@ -33,6 +33,19 @@ function AdminUser() {
         }
     }
 
+    async function delUser(userId){
+        const userInf = ({id: userId})
+        try{
+            const response = await axios.post(`${BASE_URL}/user/delete`, userInf,
+             {
+              headers: {"Content-Type": 'application/json'}
+             });
+             window.location.href = "/admindashboard/users";
+          } catch (err){
+          }
+    }
+
+
 
     return (
         <div className='big-card-wrapper'>
@@ -41,7 +54,7 @@ function AdminUser() {
 
                     <div className="big-card-back">
                         <Link to={"/admindashboard/users"}>↩Back</Link>
-                        <button className="like-btn"><img  src={trashIcon} /></button>
+                        <button className="like-btn" onClick={() => delUser(item.id)}><img  src={trashIcon} /></button>
                     </div>
 
                     <div className="big-card-header">
@@ -53,10 +66,10 @@ function AdminUser() {
 
                         <div className="big-card-header-stats">
                             <p>Email:  {item.email}  </p>
-                            {item.admin == 1 ? (
-                                <p>Admin: <input type="checkbox" checked="checked"/></p>
+                            {item.admin == "true" ? (
+                                <p>Admin: <input type="checkbox" checked/></p>
                             ) : (
-                                <p>Admin: <input type="checkbox" /></p>
+                                <p>Admin: <input type="checkbox"/></p>
                             )}
                         </div>
 

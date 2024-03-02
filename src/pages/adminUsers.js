@@ -2,14 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import axios from '../api/axios'
 
-import plusIcon from '../icons/greenPlus.png'
-
 function AdminUsers() {
-    const [items, addItems] = useState([])
-    const [isSearched, setSearched] = useState(false)
-    const [allItems, setAllItems] = useState([])
-    const [types, setTypes] = useState([])
-    const [sortType, setSortType] = useState([])
+    const [Users, setUsers] = useState([])
     const URL = `https://node-ror2.vercel.app/api/users`
 
     useEffect(() => {
@@ -27,9 +21,7 @@ function AdminUsers() {
         fetch(URL)
             .then(response => response.json())
             .then(data => {
-                const allitems = data.sort((a, b) => a.rarity.localeCompare(b.rarity));
-                addItems(allitems)
-                setAllItems(allitems)
+                setUsers(data)
             })
             .catch(err => console.log(err))
     }
@@ -57,7 +49,7 @@ function AdminUsers() {
                 <div className='items-wrapper'>
                     <div className="items-content">
 
-                    {items.map(item => {
+                    {Users.map(item => {
                             return (
                                 <Link key={item.id} to={`/admin/user/${item.id}`} className='items-card'>
                                     <img src={item.img} />
