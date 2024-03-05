@@ -8,6 +8,7 @@ function AdminUser() {
     const params = useParams()
     const ItemName = params.UserId
     const [User, setUser] = useState([])
+    const [isAdmin, setAdmin] = useState();
 
     const BASE_URL = 'https://node-ror2.vercel.app/api';
 
@@ -16,6 +17,7 @@ function AdminUser() {
             const response = await axios.get(`${BASE_URL}/user/id/${UserId}`);
             const data = response.data;
             setUser(data);
+            setAdmin(data[0].admin)
         } catch (err) {
             console.error('Failed to get page item:', err);
         }
@@ -33,6 +35,23 @@ function AdminUser() {
         }
     }
 
+    function saveClick(){
+        const userAdmin = document.getElementById('userAdmin').checked;
+        const userInf = ({isAdmin: userAdmin, id: User[0].id})
+        updateUser(userInf)
+    }
+
+    async function updateUser(userInf){
+        try{
+            const response = await axios.post(`${BASE_URL}/user/update/admin`, userInf,
+             {
+              headers: {"Content-Type": 'application/json'}
+             });
+             window.location.href = "/admindashboard/users";
+          } catch (err){
+          }
+    }
+
     async function delUser(userId){
         const userInf = ({id: userId})
         try{
@@ -44,6 +63,17 @@ function AdminUser() {
           } catch (err){
           }
     }
+
+  
+    const handleChange = () => { 
+          const checkbox = document.getElementById('userAdmin').checked;
+          if(checkbox == false){
+            setAdmin(true)
+          }
+          if(checkbox == true){
+            setAdmin(false)
+          }
+        }
 
 
 
@@ -66,17 +96,17 @@ function AdminUser() {
 
                         <div className="big-card-header-stats">
                             <p>Email:  {item.email}  </p>
-                            {item.admin == "true" ? (
-                                <p>Admin: <input type="checkbox" checked/></p>
+                            {isAdmin == "true" ? (
+                                <p>Admin: <input type="checkbox" id="userAdmin" checked onChange={handleChange}/></p>
                             ) : (
-                                <p>Admin: <input type="checkbox"/></p>
+                                <p>Admin: <input type="checkbox" id="userAdmin" onChange={handleChange}/></p>
                             )}
                         </div>
 
                     </div>
                     
                     <div className="same-items-wrapper">
-                        <button className="infChangeBtn">Save</button>
+                        <button className="infChangeBtn" onClick={saveClick}>Save</button>
                     </div>
 
                 </div>

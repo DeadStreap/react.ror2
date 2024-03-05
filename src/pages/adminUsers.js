@@ -26,7 +26,6 @@ function AdminUsers() {
             .catch(err => console.log(err))
     }
 
-
     const ItemLink = ({ item, isSearched }) => (
         <Link key={item.id} to={`/item/${item.name}`} className='items-card' >
             <img src={item.img} />
