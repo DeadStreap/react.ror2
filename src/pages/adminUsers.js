@@ -12,7 +12,7 @@ function AdminUsers() {
     }, [])
 
     function checkAdmin(){
-        if(!localStorage.getItem('userInf') || JSON.parse(localStorage.getItem('userInf')).isAdmin == 0){
+        if(!localStorage.getItem('userInf') || JSON.parse(localStorage.getItem('userInf')).isAdmin != "true"){
             window.location.href = "/";
         }
     }
@@ -25,13 +25,6 @@ function AdminUsers() {
             })
             .catch(err => console.log(err))
     }
-
-    const ItemLink = ({ item, isSearched }) => (
-        <Link key={item.id} to={`/item/${item.name}`} className='items-card' >
-            <img src={item.img} />
-            {isSearched && <div>{item.name}</div>}
-        </Link>
-    )
 
     return (
         <>

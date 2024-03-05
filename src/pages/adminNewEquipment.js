@@ -11,7 +11,7 @@ function AdminNewEquipment (){
     }, [])
 
     function checkAdmin(){
-        if(!localStorage.getItem('userInf') || JSON.parse(localStorage.getItem('userInf')).isAdmin == 0){
+        if(!localStorage.getItem('userInf') || JSON.parse(localStorage.getItem('userInf')).isAdmin != "true"){
             window.location.href = "/";
         }
     }

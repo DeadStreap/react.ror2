@@ -15,11 +15,12 @@ const Profile = ({ getUser }) => {
         var user_img = JSON.parse(localStorage.getItem('userInf')).user_img
         var user_id = JSON.parse(localStorage.getItem('userInf')).user_id
         var isAdmin = JSON.parse(localStorage.getItem('userInf')).isAdmin
+        console.log(isAdmin)
     }
 
     const [userImg, setUserImg] = useState(user_img)
 
-    const handleClick = () => {
+    const exitClick = () => {
         localStorage.removeItem('userInf')
         setUserImg()
         getUser('')
@@ -90,7 +91,7 @@ const Profile = ({ getUser }) => {
                         <div className="profileUserText">
                             <div>{login}</div>
                             <div>{email}</div>
-                            {isAdmin ? (<Link to="/admindashboard/items">Go admin panel</Link>) : (<></>)}
+                            {isAdmin == "true" ? (<Link to="/admindashboard/items">Go admin panel</Link>) : (<></>)}
                         </div>
 
                     </div>
@@ -100,7 +101,7 @@ const Profile = ({ getUser }) => {
                         {FavoriteItems}
                         </div>
                     </div>
-                    <button className='exitBtn' onClick={handleClick}>Exit</button>
+                    <button className='exitBtn' onClick={exitClick}>Exit</button>
                 </>) : (
                 <div className='profileNotAuth'>
                     <div>You are not authorized</div>
