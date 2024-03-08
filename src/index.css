@@ -706,7 +706,7 @@ footer{
  height: 90vh;
  display: flex;
  flex-direction: column;
- width: 15%;
+ width: 10%;
  gap: 10px 0;
  align-items: center;
 }
@@ -776,6 +776,14 @@ footer{
 }
 .home-dlc-buy-links{
   max-width: 50%;
+}
+
+/* ADMIN DASHBOARD */
+.admin-dashboard-menu{
+  width: 15%;
+ }
+.admin-dashboard-wrapper .items-wrapper{
+  max-width: 80%;
 }
 
 }
@@ -857,6 +865,25 @@ footer{
 }
 .system-requirements-min h1, .system-requirements-recommended h1{
   font-size: 35px;
+}
+
+/* ADMIN DASHBOARD */
+.admin-dashboard-wrapper{
+  flex-direction: column;
+}
+.admin-dashboard-menu{
+  height: 50px;
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0 20px;
+ }
+.admin-dashboard-menu a{
+  width: auto;
+}
+.admin-dashboard-wrapper .items-wrapper{
+  max-width: 90%;
 }
 
 }
@@ -967,6 +994,17 @@ footer{
 }
 .system-requirements-wrapper{
   width: 90%;
+}
+
+/* ADMIN DASHBOARD */
+.admin-dashboard-menu{
+  gap: 0 15px;
+}
+.admin-dashboard-menu{
+  font-size: 15ox;
+}
+.admin-dashboard-wrapper .items-wrapper{
+  max-width: 95%;
 }
 
 }

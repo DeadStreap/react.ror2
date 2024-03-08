@@ -15,7 +15,6 @@ const Profile = ({ getUser }) => {
         var user_img = JSON.parse(localStorage.getItem('userInf')).user_img
         var user_id = JSON.parse(localStorage.getItem('userInf')).user_id
         var isAdmin = JSON.parse(localStorage.getItem('userInf')).isAdmin
-        console.log(isAdmin)
     }
 
     const [userImg, setUserImg] = useState(user_img)
