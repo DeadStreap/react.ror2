@@ -9,15 +9,22 @@ const Profile = ({ getUser }) => {
 
     const [modalActive, setModalActive] = useState(false)
 
+    var userInfo = {};
+
     if (localStorage.getItem('userInf')) {
-        var login = JSON.parse(localStorage.getItem('userInf')).login
-        var email = JSON.parse(localStorage.getItem('userInf')).email
-        var user_img = JSON.parse(localStorage.getItem('userInf')).user_img
-        var user_id = JSON.parse(localStorage.getItem('userInf')).user_id
-        var isAdmin = JSON.parse(localStorage.getItem('userInf')).isAdmin
+        updateUserInfo(JSON.parse(localStorage.getItem('userInf')).login, JSON.parse(localStorage.getItem('userInf')).email, JSON.parse(localStorage.getItem('userInf')).user_img, JSON.parse(localStorage.getItem('userInf')).user_id, JSON.parse(localStorage.getItem('userInf')).isAdmin)
     }
 
-    const [userImg, setUserImg] = useState(user_img)
+    function updateUserInfo(login, email, user_img, user_id, isAdmin){
+        userInfo.login = login
+        userInfo.email = email
+        userInfo.user_img = user_img
+        userInfo.user_id = user_id
+        userInfo.isAdmin = isAdmin
+        console.log(userInfo.isAdmin)
+    }
+
+    const [userImg, setUserImg] = useState(userInfo.user_img)
 
     const exitClick = () => {
         localStorage.removeItem('userInf')
@@ -27,8 +34,27 @@ const Profile = ({ getUser }) => {
 
     const [userFavoritesItem, setUserFavoritesItem] = useState([])
 
+    async function getUserInf(){
+       const URL = `https://node-ror2.vercel.app/api/user/id/${userInfo.user_id}`;
+        try {
+            const response = await fetch(URL);
+            const data = await response.json();
+            updateUserInfo(data[0].login, data[0].email, data[0].img, data[0].id, data[0].admin)
+            let userinf = {
+                login: data[0].login,
+                email: data[0].email,
+                user_img: data[0].img,
+                user_id: data[0].id,
+                isAdmin: data[0].admin
+              }
+            localStorage.setItem('userInf', JSON.stringify(userinf))
+        } catch (err) {
+            console.error('Failed to fetch UserInfo:', err);
+        }
+    }
+
     async function getFavorites() {
-        if (!login) return;
+        if (!userInfo.login) return;
         
         const userInfoString = localStorage.getItem('userInf');
         
@@ -46,21 +72,22 @@ const Profile = ({ getUser }) => {
     }
     useEffect(() => {
         getFavorites()
+        getUserInf()
     }, [])
 
     async function avatarDelete() {
         try{
             const UpadateAvatarURL = 'https://node-ror2.vercel.app/api/user/delete/avatar'
-            const url = ({id: user_id})
+            const url = ({id: userInfo.user_id})
             const response = await axios.post(UpadateAvatarURL, url,
              {
               headers: {"Content-Type": 'application/json'}
              });
              let userinf = {
-              login: login,
-              email: email,
+              login: userInfo.login,
+              email: userInfo.email,
               user_img: null,
-              user_id: user_id
+              user_id: userInfo.user_id
             }
             localStorage.setItem('userInf', JSON.stringify(userinf))
             setUserImg(null)
@@ -74,7 +101,7 @@ const Profile = ({ getUser }) => {
     )
     return (
         <div className='profileCard'>
-            {login ? (
+            {userInfo.login ? (
                 <>
                     <div className="profileInf">
 
@@ -88,9 +115,9 @@ const Profile = ({ getUser }) => {
                             <img src={userImg} onClick={avatarDelete}/>
                         )}
                         <div className="profileUserText">
-                            <div>{login}</div>
-                            <div>{email}</div>
-                            {isAdmin == "true" ? (<Link to="/admindashboard/items">Go admin panel</Link>) : (<></>)}
+                            <div>{userInfo.login}</div>
+                            <div>{userInfo.email}</div>
+                            {userInfo.isAdmin == "true" ? (<Link to="/admindashboard/items">Go admin panel</Link>) : (<></>)}
                         </div>
 
                     </div>
