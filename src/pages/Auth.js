@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef, Component } from "react";
 import { Link, json } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import axios from '../api/axios'
 
 const AUTH_URL = 'https://node-ror2.vercel.app/api/user/auth'
