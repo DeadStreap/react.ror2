@@ -96,7 +96,7 @@ function ItemsList() {
                             .map(item => {
                                 return (
                                     <Link key={item.id} to={`/item/${item.name}`} className='items-card'>
-                                        <img src={item.img} />
+                                        <img src={item.img}/>
                                         {isSearched && <div>{item.name}</div>}
                                     </Link>
                                 )
