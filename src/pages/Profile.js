@@ -21,7 +21,6 @@ const Profile = ({ getUser }) => {
         userInfo.user_img = user_img
         userInfo.user_id = user_id
         userInfo.isAdmin = isAdmin
-        console.log(userInfo.isAdmin)
     }
 
     const [userImg, setUserImg] = useState(userInfo.user_img)

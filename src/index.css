@@ -668,7 +668,12 @@ footer{
   border-radius: 5px;
 }
 .avatar-popup input{
-  
+  display: none;
+}
+.avatar-popup label{
+  background-color: #6fb740;
+  padding: 5px 8px;
+  border-radius: 5px;
 }
 .avatar-popup input{
   border-radius: 5px;

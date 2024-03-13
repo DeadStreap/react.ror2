@@ -8,9 +8,7 @@ var email = JSON.parse(localStorage.getItem('userInf')).email
 var login = JSON.parse(localStorage.getItem('userInf')).login
 
 
-  const [avatarURL, setAvatarURL] = useState();
-
-  const handleSubmit = async () => {
+  const updateAvatar = async (avatarURL) => {
     try{
       const UpadateAvatarURL = 'https://node-ror2.vercel.app/api/user/update/avatar'
       const updateInfo = ({url: avatarURL, id: userId})
@@ -29,12 +27,25 @@ var login = JSON.parse(localStorage.getItem('userInf')).login
     }
   }
 
+async function changeHandler(e){
+  const uploadURL = 'http://localhost:8080/api/user/upload/avatar'
+  const file = e.target.files[0]
+  const formData = new FormData()
+  formData.append("file", file)
+  const response = await axios.post(uploadURL, formData,{
+    headers:{ "Content-Type": "multipart/form-data"},
+  }).then(function (response) {
+    console.log(response.data);
+    updateAvatar(response.data)
+  })
+}
+
     return(
         <div className={active ? "avatar-popup-wrapper avatar-popup-wrapper-active" : "avatar-popup-wrapper"} onClick={()=> setActive(false)}>
             <div className="avatar-popup" onClick={e => e.stopPropagation()}>
-                <form onSubmit={handleSubmit}>
-                    <label>Avatar URL: <input type="text" name='url' onChange={(e) => setAvatarURL(e.target.value)} required/> </label>
-                    <button>✔</button>
+                <form>
+                    <label for='upload_avatar'>Upload avatar</label>
+                    <input id="upload_avatar" accept="/image/*" onChange={e => changeHandler(e)} type="file" placeholder="Upload avatar" />
                 </form>
                 <button onClick={()=> setActive(false)}>Go back</button>
             </div>
