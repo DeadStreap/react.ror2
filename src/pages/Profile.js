@@ -70,8 +70,8 @@ const Profile = ({ getUser }) => {
         }
     }
     useEffect(() => {
-        getFavorites()
         getUserInf()
+        getFavorites()
     }, [])
 
     async function avatarDelete() {
