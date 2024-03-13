@@ -33,8 +33,8 @@ const Profile = ({ getUser }) => {
 
     const [userFavoritesItem, setUserFavoritesItem] = useState([])
 
-    async function getUserInf(){
-       const URL = `https://node-ror2.vercel.app/api/user/id/${userInfo.user_id}`;
+    async function getUserInf() {
+        const URL = `https://node-ror2.vercel.app/api/user/id/${userInfo.user_id}`;
         try {
             const response = await fetch(URL);
             const data = await response.json();
@@ -45,7 +45,7 @@ const Profile = ({ getUser }) => {
                 user_img: data[0].img,
                 user_id: data[0].id,
                 isAdmin: data[0].admin
-              }
+            }
             localStorage.setItem('userInf', JSON.stringify(userinf))
         } catch (err) {
             console.error('Failed to fetch UserInfo:', err);
@@ -53,14 +53,13 @@ const Profile = ({ getUser }) => {
     }
 
     async function getFavorites() {
-        if (!userInfo.login) return;
-        
+        const { login, user_id } = userInfo;
         const userInfoString = localStorage.getItem('userInf');
-        
-        if (!userInfoString) return;
 
-        const { user_id } = JSON.parse(userInfoString);
+        if (!login || !user_id || !userInfoString) return;
+
         const URL = `https://node-ror2.vercel.app/api/user/favorite/all/${user_id}`;
+
         try {
             const response = await fetch(URL);
             const data = await response.json();
@@ -71,7 +70,7 @@ const Profile = ({ getUser }) => {
     }
     useEffect(() => {
         getFavorites()
-        getUserInf()
+        setTimeout(() => { getUserInf(); }, 1000);
     }, [])
 
     async function avatarDelete() {
