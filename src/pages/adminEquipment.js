@@ -91,11 +91,12 @@ function AdminEquipment (){
                         <div className='itemChangeInfText' contentEditable="true" id="equipAbout">{item.about}</div>
                     </div>
 
+                    <div className="same-items-wrapper">
+                    <button className="infChangeBtn" onClick={saveClick}>Save</button>
+                    </div>
+
                 </div>
                 ))}
-                <div className="same-items-wrapper">
-                    <button className="infChangeBtn" onClick={saveClick}>Save</button>
-                </div>
         </div>
     )
 }
