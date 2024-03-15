@@ -87,7 +87,11 @@ function AdminItem() {
                             <p>Rarity:  <div className='itemChangeInfText' contentEditable="true" id='itemRarity' > {item.rarity} </div> </p>
                             <p>Category: <div className='itemChangeInfText' contentEditable="true" id='itemCategory'>  {item.category} </div> </p>
                             <p>Stack: <div className='itemChangeInfText' contentEditable="true" id='itemStack'> {item.stack} </div></p>
-                            <p>FromDLC: <input type="checkbox" id="itemFromDLC" defaultChecked={item.FromDLC === 'true'} /></p>
+                            {item.FromDLC == 'true' ? (
+                                <p>FromDLC: <input type="checkbox" id="itemFromDLC" checked="checked"/></p>
+                            ) : (
+                                <p>FromDLC: <input type="checkbox" id="itemFromDLC"/></p>
+                            )}
                         </div>
 
                     </div>
