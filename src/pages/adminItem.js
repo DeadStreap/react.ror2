@@ -48,10 +48,11 @@ function AdminItem() {
             category: document.getElementById('itemCategory').innerText,
             stack: document.getElementById('itemStack').innerText,
             description: document.getElementById('itemDescription').innerText,
-            FromDLC: document.getElementById('itemFromDLC').checked,
+            FromDLC: document.getElementById('itemFromDLC').checked.toString(),
             img: document.getElementById('itemImg').innerText,
             id: Item[0].id
         };
+        console.log(document.getElementById('itemFromDLC').checked.toString())
         updateItem(updatedItem);
     };
 
@@ -87,11 +88,7 @@ function AdminItem() {
                             <p>Rarity:  <div className='itemChangeInfText' contentEditable="true" id='itemRarity' > {item.rarity} </div> </p>
                             <p>Category: <div className='itemChangeInfText' contentEditable="true" id='itemCategory'>  {item.category} </div> </p>
                             <p>Stack: <div className='itemChangeInfText' contentEditable="true" id='itemStack'> {item.stack} </div></p>
-                            {item.FromDLC == 'true' ? (
-                                <p>FromDLC: <input type="checkbox" id="itemFromDLC" checked="checked"/></p>
-                            ) : (
-                                <p>FromDLC: <input type="checkbox" id="itemFromDLC"/></p>
-                            )}
+                            <p>FromDLC: <input type="checkbox" id="itemFromDLC" defaultChecked={item.FromDLC === 'true'} /></p>
                         </div>
 
                     </div>
