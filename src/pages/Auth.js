@@ -37,9 +37,9 @@ const Auth = ({ getUser }) => {
       console.log(err)
       if (!err?.response) {
         setErrMsg('No Server Response')
-      } else if (err.response?.status == 409) {
+      } else if (err.response?.status === 409) {
         setErrMsg('Not found user with that login')
-      } else if (err.response?.status == 410) {
+      } else if (err.response?.status === 410) {
         setErrMsg('Wrong password')
       } else {
         setErrMsg('Registration Failed')
