@@ -11,21 +11,19 @@ function AdminItem() {
 
     const BASE_URL = 'https://node-ror2.vercel.app/api';
 
-    async function getPageItem(ItemName) {
-        try {
-            const response = await axios.get(`${BASE_URL}/item/name/${ItemName}`);
-            const data = response.data;
-            setItem(data);
-        } catch (err) {
-            console.error('Failed to get page item:', err);
-        }
-    }
-
-
     useEffect(() => {
         checkAdmin()
         getPageItem(ItemName)
     }, [])
+
+    async function getPageItem(ItemName) {
+        try {
+            const response = await axios.get(`${BASE_URL}/item/name/${ItemName}`);
+            setItem(response.data);
+        } catch (err) {
+            console.error('Failed to get page item:', err);
+        }
+    }
 
     function checkAdmin(){
         if(!localStorage.getItem('userInf') || JSON.parse(localStorage.getItem('userInf')).isAdmin != "true"){
@@ -33,41 +31,38 @@ function AdminItem() {
         }
     }
 
-    async function delItem(itemId) {
-        const itemInf = ({id: itemId})
-        try{
-            const response = await axios.post(`${BASE_URL}/delete/item`, itemInf,
-             {
-              headers: {"Content-Type": 'application/json'}
-             });
-             window.location.href = "/admindashboard/items";
-          } catch (err){
-          }
-    }
+    const delItem = async (itemId) => {
+        try {
+            await axios.post(`${BASE_URL}/delete/item`, { id: itemId }, { headers: { "Content-Type": 'application/json' } });
+            window.location.href = "/admindashboard/items";
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
-    function saveClick(){
-        const itemImg = document.getElementById('itemImg').innerText;
-        const itemName = document.getElementById('itemName').innerText;
-        const itemRarity = document.getElementById('itemRarity').innerText;
-        const itemCategory = document.getElementById('itemCategory').innerText;
-        const itemStack = document.getElementById('itemStack').innerText;
-        const itemFromDLC = document.getElementById('itemFromDLC').checked;
-        const itemAbout = document.getElementById('itemAbout').innerText;
-        const itemDescription = document.getElementById('itemDescription').innerText;
-        const itemInf = ({name: itemName, about: itemAbout, rarity: itemRarity, category: itemCategory, stack: itemStack, description: itemDescription, FromDLC: itemFromDLC, img: itemImg, id: Item[0].id})
-        updateItem(itemInf)
-    }
+    const saveClick = () => {
+        const updatedItem = {
+            name: document.getElementById('itemName').innerText,
+            about: document.getElementById('itemAbout').innerText,
+            rarity: document.getElementById('itemRarity').innerText,
+            category: document.getElementById('itemCategory').innerText,
+            stack: document.getElementById('itemStack').innerText,
+            description: document.getElementById('itemDescription').innerText,
+            FromDLC: document.getElementById('itemFromDLC').checked,
+            img: document.getElementById('itemImg').innerText,
+            id: Item[0].id
+        };
+        updateItem(updatedItem);
+    };
 
-    const updateItem = async (itemInf) => {
-        try{
-            const response = await axios.post(`${BASE_URL}/update/item`, itemInf,
-             {
-              headers: {"Content-Type": 'application/json'}
-             });
-             window.location.href = "/admindashboard/items";
-          } catch (err){
-          }
-    }
+    const updateItem = async (itemInfo) => {
+        try {
+            await axios.post(`${BASE_URL}/update/item`, itemInfo, { headers: { "Content-Type": 'application/json' } });
+            window.location.href = "/admindashboard/items";
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     return (
         <div className='big-card-wrapper'>
@@ -76,7 +71,9 @@ function AdminItem() {
 
                     <div className="big-card-back">
                         <Link to={"/admindashboard/items"}>↩Back</Link>
-                        <button className="like-btn" onClick={() => delItem(item.id)}><img  src={trashIcon} /></button>
+                        <button className="like-btn" onClick={() => delItem(item.id)}>
+                            <img  src={trashIcon} />
+                        </button>
                     </div>
 
                     <div className="big-card-header">
@@ -90,11 +87,7 @@ function AdminItem() {
                             <p>Rarity:  <div className='itemChangeInfText' contentEditable="true" id='itemRarity' > {item.rarity} </div> </p>
                             <p>Category: <div className='itemChangeInfText' contentEditable="true" id='itemCategory'>  {item.category} </div> </p>
                             <p>Stack: <div className='itemChangeInfText' contentEditable="true" id='itemStack'> {item.stack} </div></p>
-                            {item.FromDLC == 'true' ? (
-                                <p>FromDLC: <input type="checkbox" id="itemFromDLC" checked="checked"/></p>
-                            ) : (
-                                <p>FromDLC: <input type="checkbox" id="itemFromDLC"/></p>
-                            )}
+                            <p>FromDLC: <input type="checkbox" id="itemFromDLC" defaultChecked={item.FromDLC === 'true'} /></p>
                         </div>
 
                     </div>

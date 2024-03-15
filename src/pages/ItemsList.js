@@ -14,15 +14,16 @@ function ItemsList() {
         getItems()
     }, [])
 
-    function getItems(){
-        fetch(URL)
-            .then(response => response.json())
-            .then(data => {
-                const allitems = data.sort((a, b) => a.rarity.localeCompare(b.rarity));
-                addItems(allitems)
-                setAllItems(allitems)
-            })
-            .catch(err => console.log(err))
+    async function getItems() {
+        try {
+            const response = await fetch(URL);
+            const data = await response.json();
+            const allitems = data.sort((a, b) => a.rarity.localeCompare(b.rarity));
+            addItems(allitems);
+            setAllItems(allitems);
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     function onHeaderClick(e) {
@@ -53,59 +54,48 @@ function ItemsList() {
         }
     }
 
-    const ItemLink = ({ item, isSearched }) => (
-        <Link key={item.id} to={`/item/${item.name}`} className='items-card' >
-            <img src={item.img} />
-            {isSearched && <div>{item.name}</div>}
-        </Link>
-    )
-
-    return (
-        <div className='items-wrapper'>
-            <div className="items-header">
-                <div className="items-header-category">
-                    <button className="items-header-btn" onClick={onHeaderClick} translate="no">Name</button>
-                    <button className="items-header-btn" onClick={onHeaderClick} translate="no">Rarity</button>
-                    <button className="items-header-btn" onClick={onHeaderClick} translate="no">Category</button>
-                    <button className="items-header-btn" onClick={onHeaderClick} translate="no">Stack</button>
-                </div>
-                <div className="items-header-search">
-                    <input type='text' placeholder="Search" onChange={searchChange} spellcheck='false'/>
-                </div>
+return (
+    <div className='items-wrapper'>
+        <div className="items-header">
+            <div className="items-header-category">
+                <button className="items-header-btn" onClick={onHeaderClick} translate="no">Name</button>
+                <button className="items-header-btn" onClick={onHeaderClick} translate="no">Rarity</button>
+                <button className="items-header-btn" onClick={onHeaderClick} translate="no">Category</button>
+                <button className="items-header-btn" onClick={onHeaderClick} translate="no">Stack</button>
             </div>
-            <div className="items-content">
-
-                {types != false ?
-                    (types
-                        .map(type => {
-                            return (
-                                <div key={type} className="filtered-items-container">
-                                    <h1>{type}</h1>
-                                    <div className="types-items-content">
-                                        {items
-                                            .filter(item => item[sortType] === type)
-                                            .map(filteredItem => (
-                                                <ItemLink key={filteredItem.id} item={filteredItem} isSearched={isSearched} />
-                                            ))
-                                        }
-                                    </div>
-                                </div>
-                            )
-                        })) :
-                        (items
-                            .map(item => {
-                                return (
-                                    <Link key={item.id} to={`/item/${item.name}`} className='items-card'>
-                                        <img src={item.img}/>
-                                        {isSearched && <div>{item.name}</div>}
-                                    </Link>
-                                )
-                            }))
-                }
-
+            <div className="items-header-search">
+                <input type='text' placeholder="Search" onChange={searchChange} spellCheck='false'/>
             </div>
         </div>
-    )
+        <div className="items-content">
+            {types != false ? (
+                types.map(type => (
+                    <div key={type} className="filtered-items-container">
+                        <h1>{type}</h1>
+                        <div className="types-items-content">
+                            {items
+                                .filter(item => item[sortType] === type)
+                                .map(filteredItem => (
+                                    <Link key={filteredItem.id} to={`/item/${filteredItem.name}`} className='items-card'>
+                                        <img src={filteredItem.img} />
+                                        {isSearched && <div>{filteredItem.name}</div>}
+                                    </Link>
+                                ))}
+                        </div>
+                    </div>
+                ))
+            ) : (
+                items.map(item => (
+                    <Link key={item.id} to={`/item/${item.name}`} className='items-card'>
+                        <img src={item.img} />
+                        {isSearched && <div>{item.name}</div>}
+                    </Link>
+                ))
+            )}
+        </div>
+    </div>
+);
 }
+
 
 export { ItemsList }

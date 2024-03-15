@@ -28,42 +28,20 @@ import { AdminNewEquipment } from './pages/adminNewEquipment'
 import { AdminUsers } from './pages/adminUsers'
 import { AdminUser } from './pages/adminUser'
 
+
 function App() {
-  const [login, setLogin] = useState('');
-  const [email, setEmail] = useState('');
-  const [user_img, setUserImg] = useState('');
-  const [user_id, setUserId] = useState('');
-  const [isAdmin, setIsAdmin] = useState('');
+  const [userData, setUserData] = useState({});
 
-  if(JSON.parse(localStorage.getItem('userInf'))){
-    var UserInf = JSON.parse(localStorage.getItem('userInf'))
-  }
+  useEffect(() => {
+    const storedUserData = JSON.parse(localStorage.getItem('userInf'));
+    if (storedUserData) {
+      setUserData(storedUserData);
+    }
+  }, []);
 
-  const handleGetUser = (get) =>{
-    var UserInf = JSON.parse(localStorage.getItem('userInf'))
-    if(UserInf){
-    setLogin(UserInf.login)
-    setEmail(UserInf.email)
-    setUserImg(UserInf.user_img)
-    setUserId(UserInf.user_id)
-    setIsAdmin(UserInf.isAdmin)
-    }else{
-    setLogin(get.login)
-    setEmail(get.email)
-    setUserImg(get.user_img)
-    setUserId(get.user_id)
-    setIsAdmin(get.isAdmin)
-    }
-  }
-  useEffect(()=>{
-    if(UserInf){
-      setLogin(UserInf.login)
-      setEmail(UserInf.email)
-      setUserImg(UserInf.user_img)
-      setUserId(UserInf.user_id)
-      setIsAdmin(UserInf.isAdmin)
-    }
-}, [])
+  const handleGetUser = (userData) => {
+    setUserData(userData);
+  };
 
   return (
     <>
@@ -78,8 +56,8 @@ function App() {
         </div>
         <div className='header-user'>
           <ThemeControl />
-          {login || UserInf ? (
-            <Link to="/profile">{UserInf.login}</Link>
+          {userData.login ? (
+            <Link to="/profile">{userData.login}</Link>
           ) : (
           <Link to="/authorization">Sign-in</Link>)}
         </div>

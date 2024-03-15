@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from '../api/axios'
 
 import NotLikeIcon from '../icons/like-icon.svg'
@@ -32,8 +32,7 @@ function ItemByName({ ItemName }) {
     }
 
     function LikeCheck(itemId, favorite_id) {
-        const isFavorite = favorite_id.includes(`${itemId}`);
-        setLikeIcon(isFavorite ? LikeIcon : NotLikeIcon);
+        setLikeIcon(favorite_id.includes(`${itemId}`) ? LikeIcon : NotLikeIcon);
     }
 
     async function getFavorite(itemId) {
@@ -84,7 +83,7 @@ function ItemByName({ ItemName }) {
         const UserInf = JSON.parse(localStorage.getItem('userInf'))
         const updatedFavorite = [...favorite, `${Item[0].id}`];
         setFavorite(updatedFavorite);
-        await updateFavorite(UserInf, updatedFavorite);
+        updateFavorite(UserInf, updatedFavorite);
         setLikeIcon(LikeIcon);
     }
 
@@ -92,7 +91,7 @@ function ItemByName({ ItemName }) {
         const UserInf = JSON.parse(localStorage.getItem('userInf'))
         const updatedFavorite = favorite.filter(item => item !== `${Item[0].id}`);
         setFavorite(updatedFavorite);
-        await updateFavorite(UserInf, updatedFavorite);
+        updateFavorite(UserInf, updatedFavorite);
         setLikeIcon(NotLikeIcon);
     }
 
@@ -143,22 +142,18 @@ function ItemByName({ ItemName }) {
                         <p>{item.description}</p>
                     </div>
 
-                    {sameItems.length != 0 ? (
+                    {sameItems.length !== 0 && (
                         <div className="same-items-wrapper">
                             <h1>Similar items :</h1>
                             <div className="same-items">
-                                {sameItems
-                                    .map(item => {
-                                        return (
-                                            <Link key={item.id} id={item.name} to={`/item/${item.name}`} className='items-card' onClick={onItemClick}>
-                                                <img src={item.img} />
-                                            </Link>
-                                        )
-                                    })
-                                }
+                                {sameItems.map(item => (
+                                    <Link key={item.id} id={item.name} to={`/item/${item.name}`} className='items-card' onClick={onItemClick}>
+                                        <img src={item.img} />
+                                    </Link>
+                                ))}
                             </div>
                         </div>
-                    ) : (<></>)}
+                    )}
 
                 </div>
             ))}
