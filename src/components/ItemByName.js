@@ -17,7 +17,7 @@ function ItemByName({ ItemName }) {
         try {
             const response = await axios.get(`${BASE_URL}/item/name/${getItemName}`);
             const data = response.data;
-            getFavorite(data[0].id);
+            (JSON.parse(localStorage.getItem('userInf')) && getFavorite(data[0].id))
             setItem(data);
             getSameItems(data);
         } catch (err) {
@@ -35,7 +35,7 @@ function ItemByName({ ItemName }) {
         setLikeIcon(favorite_id.includes(`${itemId}`) ? LikeIcon : NotLikeIcon);
     }
 
-    async function getFavorite(itemId) {
+    const getFavorite = async (itemId) => {
         try {
             const UserInf = JSON.parse(localStorage.getItem('userInf'));
             const response = await axios.get(`${BASE_URL}/user/favorite/id/${UserInf.user_id}`);
@@ -53,16 +53,16 @@ function ItemByName({ ItemName }) {
     }
       
 
-    async function getSameItems(itemCategory) {
+    const getSameItems = async (itemCategory) => {
         try {
-            const response = await axios.get(`${BASE_URL}/items`);
-            const data = response.data;
-            const allItems = data.sort((a, b) => (a.rarity > b.rarity ? 1 : b.rarity > a.rarity ? -1 : 0));
-            setSameItems(allItems);
-            sameCheck(allItems, itemCategory[0]);
+          const response = await axios.get(`${BASE_URL}/items`);
+          const data = response.data;
+          const allItems = data.sort((a, b) => (a.rarity > b.rarity ? 1 : b.rarity > a.rarity ? -1 : 0));
+          setSameItems(allItems);
+          sameCheck(allItems, itemCategory[0]);
         }
         catch (err) { console.log(err); }
-    }
+      }
 
     function sameCheck(allItems, pageItem) {
         const pageItemCategory = pageItem.category.split(',');
@@ -110,8 +110,8 @@ function ItemByName({ ItemName }) {
 
 
     useEffect(() => {
-        getPageItem(ItemName)
-    }, [])
+        getPageItem(ItemName);
+    }, [ItemName]);
 
     return (
         <div className='big-card-wrapper'>
@@ -120,7 +120,7 @@ function ItemByName({ ItemName }) {
 
                     <div className="big-card-back">
                         <Link to={"/items"}>↩Back</Link>
-                        <button className="like-btn" onClick={LikeClick}><img src={likeIcon} /></button>
+                        {JSON.parse(localStorage.getItem('userInf')) && <button className="like-btn" onClick={LikeClick}><img src={likeIcon} /></button>}
                     </div>
 
                     <div className="big-card-header">
